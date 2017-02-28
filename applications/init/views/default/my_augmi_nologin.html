@@ -1,0 +1,98 @@
+{{extend 'layout.html'}}
+<script type="text/javascript" src="http://j.maxmind.com/app/geoip.js"></script>
+
+ <script type="text/javascript">
+  $(document).ready(function(){
+    $("#accordion").accordion({ active: 1, collapsible: true });
+  });
+  </script>
+  <script type="text/javascript">
+	$.ui.dialog.defaults.bgiframe = true;
+	$(function() {
+		$("#dialog").dialog({ width: 460 });
+	});
+	</script>
+	<style type="text/css">
+ui-slider-handle ui-state-default ui-corner-all ui-state-hover ui-state-active ui-state-focus
+{background: white {{=URL(r=request,c='static/images',f='electric_e0.gif')}} no-repeat scroll 50% 50%;}
+  </style>
+
+
+
+
+
+<div id="accordion" style="font-size:62.5%;">
+	<h3><a href="#">My Augmi Settings</a></h3>
+	<div style="background: white">
+	<p>{{=IMG(_src="http://www.google.com/s2/photos/public/AIbEiAIAAABDCLiwydSFwKrhESILdmNhcmRfcGhvdG8qKDhiNGRjMmEzM2EyNWEwZThjNmJjYzQ4MjE3YTEwMTgxYTYwNzFhZTUwAZc3ry6rQn176VvgI0Xfn79IADaO",_alt='
+loading')}}
+	</div>
+	<h3><a href="#">My Augmi Controls</a></h3>
+	<div style="font-size:120%;background: white;">
+{{
+def create_mindbeat():
+  return DIV(
+    form.custom.begin,
+    DIV(
+      TABLE(
+        TR(
+          TD(form.custom.widget.Mood),
+          TD(form.custom.widget.Stress),
+          TD(form.custom.widget.Focus),
+          TD(form.custom.widget.Health),
+          TD(form.custom.widget.Energy),
+          TD(form.custom.widget.Optimism),
+          ),
+        TR(
+          TH(form.custom.label['Mood']),
+          TH(form.custom.label['Stress']),
+          TH(form.custom.label['Focus']),
+          TH(form.custom.label['Health']),
+          TH(form.custom.label['Energy']),
+          TH(form.custom.label['Optimism']),
+          ),
+        _align='center',
+        _class="clear"),
+      _class='outer-box',
+      ),
+      TABLE(
+        TR(
+          TD(INPUT(_style="color:black; width: 150px;height: 15px;", _name="no_table_username", _id="no_table_username", _class="string",_value="OFFLINE MODE")),
+          TD(INPUT(_type="password", _style="color:black; width: 150px;height: 15px;", _name="no_table_password", _id="no_table_password", _class="string",_value="OFFLINE MODE")),
+        TR(
+          TH('TWITTER USERNAME ',_style="width: 235px;height: 15px;"),
+          TH('TWITTER PASSWORD ',_style="width: 235px;height: 15px;"),
+          ),
+        _align='center',
+        _class="clear"),
+      _class='outer-box',
+      ),
+      TABLE(
+        TR(
+          TD(DIV(form.custom.widget.Message,_style="color:black; width: 100%;")),
+        TR(
+          TH('MICRO BLOG MAX 140 CHARACTERS',_style="width: 470px;height: 15px;"),
+          ),
+        _align='center',
+        _class="clear"),
+      _class='outer-box',
+      ),
+    DIV(form.custom.submit),   
+    form.custom.end
+    )
+
+pass
+
+}}
+{{=create_mindbeat()}}
+{{pass}}
+	</div>
+</div>
+<div id="dialog" title="Augmi Help">
+	<p style="color:white;">This is your own Augmi toolbox. You can set the scores and other settings for your mindbeats here.
+	There is also the facility to micro-blog with your mindbeats and also to sync this with a twitter account.
+	At the moment this requires you to input the username and password in the dialog boxes but they are not stored in any way on our system but can be stored by your web browser for ease of access.
+	This toolbox will develop as we imrove the application, and new features will be added.</p>
+</div>
+
+ 

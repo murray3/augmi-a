@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html><head id="ext-gen1001">
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">	
+    <title>Trafiki</title>
+	<link rel="stylesheet" href="{{=URL(request.application,'static/trafiki','trafiki.css')}}" type="text/css">
+	<link rel="stylesheet" href="{{=URL(request.application,'static/trafiki','main.css')}}" type="text/css">
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='main.js')}}" ></script>
+	
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='utils.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='strings.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='sylvester.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='async.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='ext-touch.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='app.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='view.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='widget.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='searchview.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='dashboardview.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='widgetview.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='iconbutton.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='navbutton.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='favpicker.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='timepicker.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='dragbutton.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='timebar.js')}}"></script>
+	
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='stop_002.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='map.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='route.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='routedetails.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='facebook_002.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='help.js')}}"></script>
+	
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='stop.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='searchstop.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='facebook.js')}}"></script>
+	<script type="text/javascript" src="{{=URL(r=request,c='static/trafiki',f='location.js')}}"></script>
+	
+	<script type="text/javascript">
+		Ext.regModel('Widget', {
+		    fields: [
+		        { name: 'title',      type: 'string' },
+				{ name: 'sid',        type: 'string' },
+		    ]
+		});
+		
+		var widgets = [
+			{ title: 'Home',   type: 'Stop',       icon: 'home', sid: 1, pos: { lat: 57.86637, lon: 11.91729 } }, 
+			{ title: 'Search', type: 'SearchStop', icon: 'search2' }, 
+			{ title: 'Work',   type: 'Stop',       icon: 'briefcase1',  sid: 2 }, 
+			{ title: 'Honey',   type: 'Stop',       icon: 'heart_circle', sid: 3 }, 
+			{ title: 'Studio',    type: 'Stop',       icon: 'headphones', sid: 4 },
+			{ title: 'Facebook', type: 'Facebook', icon: 'team' },
+			{ title: 'Location', type: 'Location', icon: 'locate' }
+		];
+		
+		Ext.setup({
+		    icon: 'pics/appicon.png',
+		    glossOnIcon: false,
+		    tabletStartupScreen: 'tablet_startup.png',
+		    phoneStartupScreen: 'pics/Default.png',
+		    onReady: function() {
+				app = new App();
+				app.fireEvent('open', new View({
+					rightNavButton: new Ext.Button({
+						ui: 'plain',
+						iconCls: 'info',
+						iconMask: true,
+						handler: function(){ app.fireEvent('open', new HelpView()); }
+					}),
+					title: 'Trafiki',
+					items: [new WidgetView({
+						widgets: widgets
+					})],	
+					dockedItems: [new TimeBar()]
+				}));
+		    }
+		});
+	</script>
+	
+	<style>
+		#sortable {
+		    position: absolute;
+		    width: 320px;
+		    overflow: auto;
+		}
+		
+		#sortable li {
+			width: 80px;
+			display: inline-block;
+		    height: 40px;
+		    line-height: 40px;
+		    padding: 0 5px;
+		    font-size: 21px;
+		    border-bottom: 1px solid #ddd;
+		}
+	</style>
+<script src="{{=URL(r=request,c='static/trafiki',f='commonutil.js')}}"></script></head><body class=" x-desktop" id="ext-gen1003">
+
+<div style="width: 1024px; height: 440px;" id="ext-gen1004" class="x-body-stretcher"></div><div style="width: 1024px; height: 440px;" class="x-panel x-fullscreen x-landscape" id="ext-comp-1004"><div style="width: 1024px; left: 0px; top: 0px;" class=" x-toolbar x-toolbar-dark x-docked x-docked-top" id="ext-comp-1006"><div id="ext-gen1010" class="x-toolbar-title">Trafiki</div><div style="min-width: 1024.4px; height: 47px;" id="ext-gen1011" class="x-layout-box-inner x-layout-box"><div class="x-button x-button-back x-hidden-display" id="ext-comp-1005"><span id="ext-gen1013" class="x-button-label">Back</span></div><div style="width: 1024px;" class=" x-component" id="ext-comp-1007"></div><div class="x-button x-button-plain x-iconalign-left" id="ext-comp-1030"><img id="ext-gen1051" src="data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="info x-icon-mask"></div></div></div><div style="width: 1024px; height: 392px; left: 0px; top: 48px;" id="ext-gen1005" class="x-panel-body x-layout-fit"><div style="height: 392px; left: 0px; top: 0px; width: 1024px;" class=" x-panel x-fit-item" id="ext-comp-1027"><div style="width: 1024px; left: 0px; top: 344px;" class=" x-toolbar x-toolbar-dark x-docked x-docked-bottom" id="ext-comp-1020"><div style="min-width: 1024.4px; height: 47px;" id="ext-gen1034" class="x-layout-box-inner x-layout-box"><div class="x-button icon-button x-button-action x-iconalign-left" id="ext-comp-1021"><img id="ext-gen1036" src="data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="arrive_at x-icon-mask"></div><div style="width: 1024px;" class=" x-component" id="ext-comp-1025"></div><div class="x-button dragbutton x-button-action x-iconalign-left" id="ext-comp-1023"><span id="ext-gen1038" class="x-button-label">19:32</span><img id="ext-gen1040" src="data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="code2 x-icon-mask"></div><div class="x-button dragbutton x-button-action x-iconalign-left" id="ext-comp-1022"><span id="ext-gen1041" class="x-button-label">11-02-25</span><img id="ext-gen1043" src="data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="code2 x-icon-mask"></div><div style="width: 1024px;" class=" x-component" id="ext-comp-1026"></div><div class="x-button x-button-action x-iconalign-left" id="ext-comp-1024"><img id="ext-gen1046" src="data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="bus x-icon-mask"></div></div></div><div style="height: 344px; left: 0px; top: 0px;" id="ext-gen1016" class="x-panel-body"><div style="min-height: 344px; width: 1024px;" id="ext-gen1021" class="x-layout-box-inner x-layout-box"><div style="width: 1024px; height: 0px;" class=" x-panel dashboardview x-sortable editing" id="ext-comp-1009"><div style="width: 1024px; height: 0px; left: 0px; top: 0px;" id="ext-gen1022" class="x-panel-body"><div class=" widget widget-normal" id="ext-comp-1013"><div class="outerWrapper"><div class="innerWrapper x-button x-button-plain"><img class="x-icon-mask icon home"><div class="title">Home</div></div></div></div><div class=" widget widget-normal" id="ext-comp-1014"><div class="outerWrapper"><div class="innerWrapper x-button x-button-plain"><img class="x-icon-mask icon search2"><div class="title">Search</div></div></div></div><div class="widget widget-normal" id="ext-comp-1015"><div class="outerWrapper"><div class="innerWrapper x-button x-button-plain"><img class="x-icon-mask icon briefcase1"><div class="title">Work</div></div></div></div><div class=" widget widget-normal" id="ext-comp-1016"><div class="outerWrapper"><div class="innerWrapper x-button x-button-plain"><img class="x-icon-mask icon heart_circle"><div class="title">Honey</div></div></div></div><div class=" widget widget-normal" id="ext-comp-1017"><div class="outerWrapper"><div class="innerWrapper x-button x-button-plain"><img class="x-icon-mask icon headphones"><div class="title">Studio</div></div></div></div><div class=" widget widget-normal" id="ext-comp-1018"><div class="outerWrapper"><div class="innerWrapper x-button x-button-plain"><img class="x-icon-mask icon team"><div class="title">Facebook</div></div></div></div><div class=" widget widget-normal" id="ext-comp-1019"><div class="outerWrapper"><div class="innerWrapper x-button x-button-plain"><img class="x-icon-mask icon locate"><div class="title">Location</div></div></div></div></div><canvas id="ext-gen1033" class="canvasOverlay" width="1024" height="0"></canvas></div></div></div></div></div></div></body></html>

@@ -1,0 +1,938 @@
+(dp1
+S'output'
+p2
+S''
+sS'layer'
+p3
+S'C:\\APPS\\augmi-a\\applications\\init/views\\default/index.html'
+p4
+sS'code'
+p5
+S'response.write(\'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\\n<html xmlns="http://www.w3.org/1999/xhtml">\\n<head>\\n  <link href="\', escape=False)\nresponse.write(URL(request.application,\'static\',\'custom.css\'))\nresponse.write(\'" rel="stylesheet" type="text/css"/>\\n  <script type="text/javascript" src="\', escape=False)\nresponse.write(URL(r=request,c=\'static\',f=\'jquery.js\'))\nresponse.write(\'"></script>\\n  <script type="text/javascript" src="\', escape=False)\nresponse.write(URL(r=request,c=\'static\',f=\'jquery.corner.js\'))\nresponse.write(\'"></script>\\n  <script type="text/javascript" src="\', escape=False)\nresponse.write(URL(r=request,c=\'static\',f=\'jqModal.js\'))\nresponse.write(\'"></script>\\n  <script type="text/javascript" src="\', escape=False)\nresponse.write(URL(r=request,c=\'static\',f=\'ui.core.js\'))\nresponse.write(\'"></script>\\n  <script type="text/javascript" src="\', escape=False)\nresponse.write(URL(r=request,c=\'static\',f=\'ui.accordion.js\'))\nresponse.write(\'"></script>\\n  <script type="text/javascript" src="\', escape=False)\nresponse.write(URL(r=request,c=\'static\',f=\'jquery-1.3.2.min.js\'))\nresponse.write(\'"></script>\\n  <script type="text/javascript" src="\', escape=False)\nresponse.write(URL(r=request,c=\'static\',f=\'jquery-ui-1.7.2.custom.min.js\'))\nresponse.write(\'"></script>\\n  <style type="text/css">\\n  #myhandle {position: absolute;z-index: 100;height: 25px;width: 35px;top: auto;background: \', escape=False)\nresponse.write(URL(r=request,c=\'static/images\',f=\'electric_e0.gif\'))\nresponse.write(\' \\n  </style>\\n<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />\\n<title>\', escape=False)\nresponse.write(response.title or request.application)\nresponse.write(\'</title>\\n\', escape=False)\nresponse.files.append(URL(r=request,c=\'static\',f=\'styles.css\'))\nresponse.write(\'\\n\', escape=False)\nresponse.files.append(URL(r=request,c=\'static\',f=\'jqModal.css\'))\nresponse.write(\'\\n\', escape=False)\nresponse.files.insert(0,URL(r=request,c=\'static\',f=\'jquery.js\'))\nresponse.files.insert(1,URL(r=request,c=\'static\',f=\'calendar.css\'))\nresponse.files.insert(2,URL(r=request,c=\'static\',f=\'calendar.js\'))\nfor _item in response.meta or []:\n    response.write(\'\\n     <meta name="\', escape=False)\n    response.write(_item)\n    response.write(\'" content="\', escape=False)\n    response.write(response.meta[_item])\n    response.write(\'" />\', escape=False)\n    pass\nfor _k,_file in enumerate(response.files or []):\n    if _file in response.files[:_k]:\n        continue\n    elif _file[-4:].lower()==\'.css\':\n        response.write(\'\\n     <link href="\', escape=False)\n        response.write(_file)\n        response.write(\'" rel="stylesheet" type="text/css" charset="utf-8" />\', escape=False)\n    elif _file[-3:].lower()==\'.js\':\n        response.write(\'\\n     <script src="\', escape=False)\n        response.write(_file)\n        response.write(\'" type="text/javascript"></script>\', escape=False)\n        pass\n    pass\nresponse.write(\'\\n<script type="text/javascript"><!--\\nfunction popup(url) {\\n  newwindow=window.open(url,\\\'name\\\',\\\'height=400,width=600\\\');\\n  if (window.focus) newwindow.focus();\\n  return false;\\n}\\nfunction collapse(id) { jQuery(\\\'#\\\'+id).slideToggle(); }\\nfunction fade(id,value) { if(value>0) jQuery(\\\'#\\\'+id).hide().fadeIn(\\\'slow\\\'); else jQuery(\\\'#\\\'+id).show().fadeOut(\\\'slow\\\'); }\\nfunction ajax(u,s,t) {\\n  var query="";\\n  for(i=0; i<s.length; i++) { \\n     if(i>0) query=query+"&";\\n     query=query+encodeURIComponent(s[i])+"="+encodeURIComponent(document.getElementById(s[i]).value);\\n  }\\n  jQuery.ajax({type: "POST", url: u, data: query, success: function(msg) { if(t==\\\':eval\\\') eval(msg); else document.getElementById(t).innerHTML=msg; } });  \\n}\\nString.prototype.reverse = function () { return this.split(\\\'\\\').reverse().join(\\\'\\\');};\\nfunction web2py_ajax_init() {\\n  jQuery(\\\'.hidden\\\').hide();\\n  jQuery(\\\'.error\\\').hide().slideDown(\\\'slow\\\');\\n  jQuery(\\\'.flash\\\').click(function() { jQuery(this).fadeOut(\\\'slow\\\'); return false; });\\n  jQuery(\\\'input.string\\\').attr(\\\'size\\\',50);\\n  jQuery(\\\'textarea.text\\\').attr(\\\'cols\\\',50).attr(\\\'rows\\\',10);\\n  jQuery(\\\'input.integer\\\').keyup(function(){this.value=this.value.reverse().replace(/[^0-9\\\\-]|\\\\-(?=.)/g,\\\'\\\').reverse();});\\n  jQuery(\\\'input.double\\\').keyup(function(){this.value=this.value.reverse().replace(/[^0-9\\\\-\\\\.]|[\\\\-](?=.)|[\\\\.](?=[0-9]*[\\\\.])/g,\\\'\\\').reverse();});\\n  jQuery(\\\'input.delete\\\').attr(\\\'onclick\\\',\\\'if(this.checked) if(!confirm("\', escape=False)\nresponse.write(T(\'Sure you want to delete this object?\'))\nresponse.write(\'")) this.checked=false;\\\');\\n  try {jQuery("input.date").focus( function() {Calendar.setup({\\n     inputField:this.id, ifFormat:"\', escape=False)\nresponse.write(T(\'%Y-%m-%d\'))\nresponse.write(\'", showsTime:false\\n  }); }); } catch(e) {};\\n  try { jQuery("input.datetime").focus( function() {Calendar.setup({\\n     inputField:this.id, ifFormat:"\', escape=False)\nresponse.write(T(\'%Y-%m-%d %H:%M:%S\'))\nresponse.write(\'", showsTime: true,timeFormat: "24"\\n  }); }); } catch(e) {};\\n  try { jQuery("input.time").clockpick({\\n      starthour:0, endhour:23, showminutes:true, military:true\\n  }); } catch(e) {};\\n};\\njQuery(document).ready(function(){\\n   jQuery(\\\'.flash\\\').hide();\\n   if(jQuery(\\\'.flash\\\').html()!=\\\'\\\') jQuery(\\\'.flash\\\').slideDown(\\\'slow\\\');\\n   web2py_ajax_init();});\\n\\nfunction web2py_trap_form(action,target) {\\n   jQuery(\\\'#\\\'+target+\\\' form\\\').each(function(i){\\n      var form=jQuery(this);\\n      jQuery(\\\'input[type="submit"]\\\',this).click(function(){\\n         jQuery(\\\'.flash\\\').hide().html(\\\'\\\');\\n         web2py_ajax_page(\\\'post\\\',action,form.serialize(),target);\\n         return false;\\n      });\\n   });\\n}\\nfunction web2py_ajax_page(method,action,data,target) {\\n  jQuery.ajax({\\\'type\\\':method,\\\'url\\\':action,\\\'data\\\':data,\\n    \\\'beforeSend\\\':function(xhr){\\n      xhr.setRequestHeader(\\\'web2py-component-location\\\',document.location);\\n      xhr.setRequestHeader(\\\'web2py-component-element\\\',target);},\\n    \\\'complete\\\':function(xhr,text){\\n      command=xhr.getResponseHeader(\\\'web2py-component-command\\\');\\n      if(command) eval(command);\\n      flash=xhr.getResponseHeader(\\\'web2py-component-flash\\\');\\n      if(flash) jQuery(\\\'.flash\\\').html(flash).slideDown();\\n      },\\n    \\\'success\\\': function(text) {\\n      jQuery(\\\'#\\\'+target).html(text);\\n      web2py_trap_form(action,target);\\n      web2py_ajax_init();\\n      }\\n    });\\n}\\nfunction web2py_component(action,target) {\\n    jQuery(document).ready(function(){ web2py_ajax_page(\\\'get\\\',action,null,target); });\\n}\\n//--></script>\\n\', escape=False)\nresponse.write(page.render())\nresponse.write(\'\\n\', escape=False)\nresponse.write(\'\\n</head>\\n<body>\\n<div class="header">\\n\\t<div class="outernav">\\n\\t\\t<div class="nav">\\n\\t\\t\\t<div class="innernav">\\n\\t\\t\\t  \', escape=False)\nresponse.write(MENU(response.menu))\nresponse.write(\'\\n\\t\\t\\t</div>\\n\\t\\t</div>\\n\\t</div>\\n\\t\\t\\n\\t<div class="clear"></div>\\n\\t\\n\\t<div class="title">\\n\\t\\t<div class="innertitle">\\n\\t\\t\\t\\n\\t\\t\\t<!-- TITLE -->\\n\\t\\t\\t\', escape=False)\nresponse.write(IMG(_src=URL(r=request,c=\'static/images\',f=\'augmi_logo.bmp\'),_alt="Augmi",_style="border: 0px; height: 100px; width: 156px; margin-left: 30px; margin-top: 0px;"))\nresponse.write(\'\\n\\n\\t\\t\\t<!-- END TITLE -->\\n\\t\\t\\t\\n\\t\\t\\t\\n\\t\\t</div>\\n\\n\\t</div>\\n</div>\\n<div id="wrap">\\n\\t<div class="pagewrapper">\\n\\t\\t<div class="innerpagewrapper">\\n\\t\\t\\t<div class="page">\\n\\t\\t\\t\\t<div class="content">\\n\\t\\t\\t\\t  <div class="flash">\', escape=False)\nresponse.write(response.flash or \'\')\nresponse.write(\'</div>\\n\\t\\t\\t\\t  \', escape=False)\nresponse.write(\'\\n<script type="text/javascript" src="\', escape=False)\nresponse.write(URL(r=request,c=\'static\',f=\'jquery.corner.js\'))\nresponse.write(\'"></script>\\n<script type="text/javascript" src="\', escape=False)\nresponse.write(URL(r=request,c=\'static\',f=\'jquery.ui.core.js\'))\nresponse.write(\'"></script>\\n<script type="text/javascript" src="\', escape=False)\nresponse.write(URL(r=request,c=\'static\',f=\'jquery.marquee.js\'))\nresponse.write(\'"></script>\\n\\n<script type="text/javascript">\\nif($.browser.msie==0){\\n$(\\\'#rounded\\\').corner();\\n}\\n\\n$(document).ready(function()\\n{\\n\\n\', escape=False)\nfor b in beats:\n    response.write("\\n\\n$(\'#msemp_", escape=False)\n    response.write(b.uuid)\n    response.write("\').click(function() {\\n$(\'#q_user_name\').val(\'", escape=False)\n    response.write(b.user_name)\n    response.write("\');\\n$(\'#q_user_id\').val(\'", escape=False)\n    response.write(b.user_id)\n    response.write(\'\\\');\\n$(\\\'#dialog\\\').dialog({"autoOpen": "false", "width": "350px"});\\n$(\\\'#dialog\\\').dialog(\\\'open\\\'); return false;\\n}); \\n\\nif($.browser.msie==0){\\n$(\\\'#mstabsl_\', escape=False)\n    response.write(b.uuid)\n    response.write("\').corner();\\n$(\'#mstabsr_", escape=False)\n    response.write(b.uuid)\n    response.write("\').corner();\\n$(\'#msemp_", escape=False)\n    response.write(b.uuid)\n    response.write("\').corner();\\n}\\n$(\'div.msmessage_", escape=False)\n    response.write(b.uuid)\n    response.write(\' marquee\\\').marquee()\\n $("div.msmessage_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'").click(function () {\\n       $(\\\'div.msfullmessage_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'\\\').show();\\n\\n\\t     });\\n  $("div.msfullmessage_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'").mouseleave(function() {\\n         $(\\\'div.msfullmessage_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'\\\').hide();\\n\\n   });\\n\\n$("#mstabsl_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'").click(function(){\\nif($.browser.msie==0){\\n  $(".mstabs1_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'").animate({"width": "252px","left": "108px","z-index": "5"}, "fast");\\n  $(".msmbeats_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'").animate({"width": "0px","z-index": "1","opacity": "0"}, "fast");\\n}\\nif($.browser.msie){\\n $(".mstabs1_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'").animate({"width": "252px","left": "108px","z-index": "5"}, "fast");\\n  $(".msmbeats_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'").animate({"width": "0px","z-index": "1","opacity": "0"}, "fast");\\n}\\n\\nif($.browser.msie==0){\\n  $(".mstabs2_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'").animate({"z-index": "4","padding": "1px","left": "328px","width": "60px","opacity": "1","border": "1px solid white"}, "fast");\\n}\\nif($.browser.msie){\\n   $(".mstabs2_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'").animate({"z-index": "4","padding": "1px","left": "328px","width": "60px","opacity": "1","border": "1px solid white"}, "fast");\\n}\\n\\n\\n\\nif($.browser.msie){\\n$(".mstabs2_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'").css({"border": "1px solid white"});\\n}\\n});\\n\\n$("#mstabsr_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'").click(function(){\\n  $(".mstabs1_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'").animate({"width": "60px","left": "330px","z-index": "1"}, "fast");\\n  $(".msmbeats_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'").animate({"width": "252px","z-index": "3","opacity": "3"}, "fast");\\n  $(".mstabs2_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'").animate({"z-index": "1","padding": "0px","border": "0px","left": "108px","width": "0px","opacity": "0"}, "fast");\\n\\n});\\n\\t\', escape=False)\n    pass\nresponse.write(\'\\n\\n});\\n</script>\\n<style type="text/css">\\n\', escape=False)\nfor b in beats:\n    response.write(\'\\n\\ndiv.microsite_dialog_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'{\\n\\tz-index: 1;\\n\\tposition: relative;\\n\\tborder: 3px; \\n\\tleft: 0px;\\n\\ttop: 0px;\\n\\tbackground-color: #989898 ;\\n\\twidth: 518px;\\n\\theight: 78px;\\n\\tpadding: 0px 0px 0px 0px;\\n}\\n\\ndiv.microsite_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'{\\n\\tz-index: 1;\\n\\tposition: relative;\\n\\tborder: 3px; \\n\\tleft: 0px;\\n\\ttop: 0px;\\n\\tbackground-color: #989898 ;\\n\\twidth: 518px;\\n\\theight: 78px;\\n\\tpadding: 0px 0px 0px 0px;\\n}\\n\\ndiv.msmessage_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'{\\n\\tfloat: left;\\n\\tposition: absolute;\\n\\tleft: 105px;\\n\\ttop: 4px;\\n\\tbackground-color: black;\\n\\twidth: 406px;\\n\\theight: 18px;\\n\\tpadding: 1px\\n}\\n\\ndiv.msfullmessage_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'{\\n\\tz-index: 5;\\n\\tdisplay: none;\\n\\tfloat: left;\\n\\tposition: absolute;\\n\\tleft: 105px;\\n\\ttop: 4px;\\n\\tbackground-color: black;\\n\\twidth: 406px;\\n\\theight: 68px;\\n\\tpadding: 1px\\n}\\n\\ndiv.msmbeats_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'{\\n\\tz-index: 4;\\n\\tfloat: left;\\n\\tposition: absolute;\\n\\tleft: 108px;\\n\\ttop: 28px;\\n\\tbackground-color: #b2b2b2;\\n\\tborder: 1px solid white;\\n\\twidth: 252px;\\n\\theight: 42px;\\n\\tpadding: 1px\\n}\\n\\ndiv.mstabs1_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'{\\n\\tz-index: 3;\\n\\tfloat: left;\\n\\tposition: absolute;\\n\\tleft: 330px;\\n\\ttop: 28px;\\n\\tbackground-color: #4c4c4c;\\n\\tborder: 1px solid white;\\n\\twidth: 60px;\\n\\theight: 42px;\\n\\tpadding: 1px\\n}\\n\\ndiv.mstabs2_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'{\\n\\tz-index: 1;\\n\\tfloat: left;\\n\\tposition: relative;\\n\\tleft: 108px;\\n\\ttop: 28px;\\n\\tbackground-color: #b2b2b2;\\n\\tborder: 0px solid white;\\n\\twidth: 0px;\\n\\theight: 42px;\\n\\tpadding: 0px;\\n\\topacity: 0;\\n}\\n\\ndiv.mstabs3_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'{\\n\\tz-index: 1;\\n\\tfloat: left;\\n\\tposition: relative;\\n\\tleft: -50px;\\n\\ttop: 8px;\\n\\tbackground-color: #b2b2b2;\\n\\tborder: 0px solid white;\\n\\twidth: 50px;\\n\\theight: 42px;\\n\\tpadding: 1px\\n}\\n\\ndiv.mstabsl_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'{\\n\\tfloat: left;\\n\\tposition: absolute;\\n\\tleft: 400px;\\n\\ttop: 28px;\\n\\tbackground-color: #4c4c4c;\\n\\tborder: 1px solid grey;\\n\\twidth: 26px;\\n\\theight: 42px;\\n\\tpadding: 1px;\\n\\tmargin-left: 0px; \\n\\tmargin-top: 0px;\\n}\\n\\ndiv.mstabsr_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'{\\n\\tfloat: left;\\n\\tposition: absolute;\\n\\tleft: 433px;\\n\\ttop: 28px;\\n\\tbackground-color: #4c4c4c;\\n\\tborder: 1px solid grey;\\n\\twidth: 26px;\\n\\theight: 42px;\\n\\tpadding: 1px;\\n\\tmargin-left: 0px; \\n\\tmargin-top: 0px;\\n}\\n\\ndiv.msemp_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'{\\n\\tfloat: left;\\n\\tposition: absolute;\\n\\tleft: 466px;\\n\\ttop: 28px;\\n\\tbackground-color: #b2b2b2;\\n\\tborder: 1px solid grey;\\n\\twidth: 42px;\\n\\theight: 42px;\\n\\tpadding: 1px\\n}\\n\', escape=False)\n    pass\nresponse.write(\'\\n</style>\\n<h5>Latest Mind Beats:</h5>\\n\', escape=False)\nfor b in beats:\n    response.write(\'\\n<div class="tablerow">\\n<div class="microsite_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'" id="rounded">\\n<div class="mslocation" id="rounded">\', escape=False)\n    response.write(b.Location)\n    response.write(\'</div>\\n<div class="msmessage_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'" id="rounded"><marquee behavior="scroll" scrollamount="1" direction="left" width="405"><h3 style="margin-left: 0px; color: white; font-size: 14px">\', escape=False)\n    response.write(b.user_name)\n    response.write(\' (\', escape=False)\n    response.write(b.provider)\n    response.write(\') at \', escape=False)\n    response.write(b.timestamp)\n    response.write(\'  \', escape=False)\n    response.write(b.Message)\n    response.write(\'</h3></marquee></div>\\n<div class="msfullmessage_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'" id="rounded"><h3 style="margin-left: 0px; color: white; font-size: 14px">\', escape=False)\n    response.write(b.user_name)\n    response.write(\' (\', escape=False)\n    response.write(b.provider)\n    response.write(\') at \', escape=False)\n    response.write(b.timestamp)\n    response.write(\'  \', escape=False)\n    response.write(b.Message)\n    response.write(\'</h3></div>\\n<div class="msmypic" id="rounded">\', escape=False)\n    response.write(IMG(_src=b.pic_url,_alt=\'?\',_style="margin-left: 2px; margin-top: 2px; width: 38px; height: 38px;"))\n    response.write(\'</div>\\n<div class="msstress" id="rounded"><img id="rounded" src="\', escape=False)\n    response.write(URL(r=request,c=\'static/images\',f=\'clear.png\'))\n    response.write(\'" style="margin-left: 0px;  margin-top: 0px; height: 42px; width: 42px; background-image: url(\\\'/init/static/images/throbber3.gif\\\'); position: relative; background-position: \', escape=False)\n    response.write(b.Stress_html)\n    response.write(\'  0;" TITLE="My Stress Level is \', escape=False)\n    response.write(b.Stress)\n    response.write(\'"></div>\\n<div class="msmbeats_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'" id="rounded"><img src="\', escape=False)\n    response.write(URL(r=request,c=\'static/images\',f=\'clear.png\'))\n    response.write(\'" style="border: 0px; height: 42px; width: 50px; background-image: url(\\\'/init/static/images/mbeat5.gif\\\') ;  margin-left: 1px; margin-right: -1px; margin-top: 0px;  background-position: \', escape=False)\n    response.write(b.Mood_html)\n    response.write(\' 0;" TITLE="My Mood Level is \', escape=False)\n    response.write(b.Mood)\n    response.write(\'"><img src="\', escape=False)\n    response.write(URL(r=request,c=\'static/images\',f=\'clear.png\'))\n    response.write(\'" style="border: 0px; height: 42px; width: 50px; background-image: url(\\\'/init/static/images/mbeat5.gif\\\') ;  margin-left: 1px; margin-right: -1px;  margin-top: 0px; background-position: \', escape=False)\n    response.write(b.Focus_html)\n    response.write(\' 0;" TITLE="My Focus Level is \', escape=False)\n    response.write(b.Focus)\n    response.write(\'"><img src="\', escape=False)\n    response.write(URL(r=request,c=\'static/images\',f=\'clear.png\'))\n    response.write(\'" style="border: 0px; height: 42px; width: 50px; background-image: url(\\\'/init/static/images/mbeat5.gif\\\') ;  margin-left: 1px; margin-right: -1px;  margin-top: 0px; background-position: \', escape=False)\n    response.write(b.Energy_html)\n    response.write(\' 0;" TITLE="My Energy Level is \', escape=False)\n    response.write(b.Energy)\n    response.write(\'"><img src="\', escape=False)\n    response.write(URL(r=request,c=\'static/images\',f=\'clear.png\'))\n    response.write(\'" style="border: 0px; height: 42px; width: 50px; background-image: url(\\\'/init/static/images/mbeat5.gif\\\') ;  margin-left: 1px; margin-right: -1px;  margin-top: 0px; position: relative; background-position: \', escape=False)\n    response.write(b.UTD_html)\n    response.write(\' 0;" TITLE="My \\\'up to date\\\' Level is \', escape=False)\n    response.write(b.UTD)\n    response.write(\'"><img src="\', escape=False)\n    response.write(URL(r=request,c=\'static/images\',f=\'clear.png\'))\n    response.write(\'" style="border: 0px; height: 42px; width: 50px; background-image: url(\\\'/init/static/images/mbeat5.gif\\\') ;  margin-left: 1px; margin-right: -1px;  margin-top: 0px;  background-position: \', escape=False)\n    response.write(b.Optimism_html)\n    response.write(\' 0;" TITLE="My Optimisim Level is \', escape=False)\n    response.write(b.Optimism)\n    response.write(\'"></div>\\n<div class="mstabs1_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'" id="rounded"></div>\\n<div class="mstabs2_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'" id="rounded"></div>\\n<div class="mstabsl_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'" id="mstabsl_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'"><</div>\\n<div class="mstabsr_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'" id="mstabsr_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'">></div>\\n<div class="msemp_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'" id="rounded" >\\n<a href="#" id="msemp_\', escape=False)\n    response.write(b.uuid)\n    response.write(\'"><img  src="\', escape=False)\n    response.write(URL(r=request,c=\'static/images\',f=\'emp.gif\'))\n    response.write(\'" style="height: 38px; width: 20px; margin-left: 10px; margin-top: 1px"  TITLE="Send Empathy"></a></div>\\n</div>\\n</div>\\n\\t\', escape=False)\n    pass\nresponse.write(\'\\n\\t\\n\', escape=False)\ndef give_emp1():\n    return DIV(\nform.custom.begin,\nINPUT(_style="color:black; width: 20px; height: 15px;",_type="hidden", _name="q_user_name", _id="q_user_name",_class="string"),\nINPUT(_style="color:black; width: 20px; height: 15px;",_type="hidden", _name="q_user_id", _id="q_user_id",_class="string"),\nDIV(form.custom.widget.q),\nDIV(form.custom.submit),\nform.custom.end\n)\npass\nresponse.write(\'\\n\\n<div id="dialog" class="dialog" style="display: none;" title="Send Empathy To This Person">\\n\', escape=False)\nresponse.write(give_emp1())\nresponse.write(\'\\n\\n\\n</div>\\n\\n\', escape=False)\nresponse.write(\'\\n\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t</div>\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t<div class="sidebar">\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\n\\t\\t\\t\\t\\t<!-- SIDEBAR -->\\t\\t\\n\\t\\t\\t\\t\\t<h4>What is Augmi?</h4>\\n\\t\\t\\t\\t\\t<p>A web application providing\\n\\t\\t\\t\\t\\tinnovative ways to interconnect.<br>\\n\\t\\t\\t\\t\\tAugmi users can publish enhanced status updates.<br>\\n\\t\\t\\t\\t\\tThis Alpha release is just to test the idea and get user feedback. Future releases will\\n\\t\\t\\t\\t\\tadd privacy levels, and many other features.\\n\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t</p>\\n\\n\\n\\t\\t\\t\\t\\t<h4>Links</h4>\\n\\t\\t\\t\\t\\t<h>       </h>\\n\\t\\t\\t\\t\\t<div class="addthis_toolbox addthis_default_style">\\n<a href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4b03fc3d330\\nf9732" class="addthis_button_compact">Share</a>\\n<span class="addthis_separator">|</span>\\n<a class="addthis_button_facebook"></a>\\n<a class="addthis_button_myspace"></a>\\n<a class="addthis_button_google"></a>\\n<a class="addthis_button_twitter"></a>\\n</div>\\n<script type="text/javascript"\\nsrc="http://s7.addthis.com/js/250/addthis_widget.js#pub=xa-4b03fc3d330f9732"></script>\\n\\t\\t\\t\\t\\t<!-- SIDEBAR -->\\n\\t\\t\\t\\n\\t\\t\\t\\t</div>\\n\\t\\t\\t\\t<h>        </h>\\n\\t\\t\\t\\t<div class="footer">\\n\\t\\t\\t\\t\\t<p><a href="http://validator.w3.org/check/referer" title="valid XHTML">XHTML</a> | <a href="http://jigsaw.w3.org/css-validator/check/referer" title="valid CSS">CSS</a> &nbsp;&nbsp; | &copy; Augmi. 2009 | <a href="http://www.web2py.com">Web2py</a> | <a href="http://www.jQuery.com">jQuery</a></p> \\n\\t\\t\\t\\t</div>\\n\\t\\t\\t</div>\\n\\t\\t</div>\\n\\t</div>\\n</div>\\n</body>\\n</html>\\n\', escape=False)'
+p6
+sS'snapshot'
+p7
+(dp8
+S'exception'
+p9
+(dp10
+S'__hash__'
+p11
+S"<method-wrapper '__hash__' of exceptions.NameError object at 0x02193210>"
+p12
+sS'__setattr__'
+p13
+S"<method-wrapper '__setattr__' of exceptions.NameError object at 0x02193210>"
+p14
+sS'__reduce_ex__'
+p15
+S'<built-in method __reduce_ex__ of exceptions.NameError object at 0x02193210>'
+p16
+sS'__getslice__'
+p17
+S"<method-wrapper '__getslice__' of exceptions.NameError object at 0x02193210>"
+p18
+sS'__getitem__'
+p19
+S"<method-wrapper '__getitem__' of exceptions.NameError object at 0x02193210>"
+p20
+sS'__setstate__'
+p21
+S'<built-in method __setstate__ of exceptions.NameError object at 0x02193210>'
+p22
+sS'__reduce__'
+p23
+S'<built-in method __reduce__ of exceptions.NameError object at 0x02193210>'
+p24
+sS'__str__'
+p25
+S"<method-wrapper '__str__' of exceptions.NameError object at 0x02193210>"
+p26
+sS'args'
+p27
+S'("name \'page\' is not defined",)'
+p28
+sS'__getattribute__'
+p29
+S"<method-wrapper '__getattribute__' of exceptions.NameError object at 0x02193210>"
+p30
+sS'__class__'
+p31
+S"<type 'exceptions.NameError'>"
+p32
+sS'__delattr__'
+p33
+S"<method-wrapper '__delattr__' of exceptions.NameError object at 0x02193210>"
+p34
+sS'__repr__'
+p35
+S"<method-wrapper '__repr__' of exceptions.NameError object at 0x02193210>"
+p36
+sS'__dict__'
+p37
+S'{}'
+p38
+sS'__doc__'
+p39
+S"'Name not found globally.'"
+p40
+sS'__init__'
+p41
+S"<method-wrapper '__init__' of exceptions.NameError object at 0x02193210>"
+p42
+sS'__new__'
+p43
+S'<built-in method __new__ of type object at 0x1E1CD8D8>'
+p44
+ssS'evalue'
+p45
+S"name 'page' is not defined"
+p46
+sS'request'
+p47
+(dp48
+S'function'
+p49
+S"'index'"
+p50
+sS'body'
+p51
+S'<cStringIO.StringO object at 0x02168820>'
+p52
+sS'wsgi'
+p53
+S"<Storage {'start_response': <function <lambda> a...ING': 'gzip,deflate', 'HTTP_KEEP_ALIVE': '115'}}>"
+p54
+sS'extension'
+p55
+S"'html'"
+p56
+sS'vars'
+p57
+S'<Storage {}>'
+p58
+sS'cid'
+p59
+S'None'
+p60
+sS'url'
+p61
+S'<gluon.html.XML object at 0x02157E90>'
+p62
+sg27
+S'[]'
+p63
+sS'controller'
+p64
+S"'default'"
+p65
+sS'cookies'
+p66
+S"<SimpleCookie: _csoot='1268522883958' _csuid='4b...come='1303:76aa30a0-7385-43e6-b1e1-156688a1840e'>"
+p67
+sS'application'
+p68
+S"'init'"
+p69
+sS'ajax'
+p70
+S'False'
+p71
+sS'client'
+p72
+S"'127.0.0.1'"
+p73
+sS'env'
+p74
+S"<Storage {'http_user_agent': 'Mozilla/5.0 (Windo...nce': False, 'path_info': '/init/default/index'}>"
+p75
+sS'raw_args'
+p76
+S'None'
+p77
+sS'get_vars'
+p78
+S'<Storage {}>'
+p79
+sS'folder'
+p80
+S"r'C:\\APPS\\augmi-a\\applications\\init/'"
+p81
+sS'now'
+p82
+S'datetime.datetime(2010, 10, 9, 23, 23, 16, 328000)'
+p83
+sS'post_vars'
+p84
+S'<Storage {}>'
+p85
+ssS'frames'
+p86
+(lp87
+(dp88
+S'file'
+p89
+S'C:\\APPS\\augmi-a\\gluon\\restricted.py'
+p90
+sS'dump'
+p91
+(dp92
+S'environment'
+p93
+S"{'A': <class 'gluon.html.A'>, 'Auth': <class 'gluon.tools.Auth'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, 'BR': <class 'gluon.html.BR'>, 'CENTER': <class 'gluon.html.CENTER'>, 'CLEANUP': <class 'gluon.validators.CLEANUP'>, 'CODE': <class 'gluon.html.CODE'>, 'CRYPT': <class 'gluon.validators.CRYPT'>, ...}"
+p94
+sS'ccode'
+p95
+S'<code object <module> at 0217A698, file "C:\\APPS...lications\\init/views\\default/index.html", line 1>'
+p96
+ssS'lnum'
+p97
+I188
+sS'lines'
+p98
+(dp99
+I192
+S'        # XXX Show exception in Wing IDE if running in debugger'
+p100
+sI183
+S'        if type(code) == types.CodeType:'
+p101
+sI184
+S'            ccode = code'
+p102
+sI185
+S'        else:'
+p103
+sI186
+S'            ccode = compile2(code,layer)'
+p104
+sI187
+S''
+sI188
+S'        exec ccode in environment'
+p105
+sI189
+S'    except HTTP:'
+p106
+sI190
+S'        raise'
+p107
+sI191
+S'    except Exception:'
+p108
+ssS'call'
+p109
+S'(code=\'response.write(\\\'<!DOCTYPE html PUBLIC "-//W3C//D.../div>\\\\n</div>\\\\n</body>\\\\n</html>\\\\n\\\', escape=False)\', environment={\'A\': <class \'gluon.html.A\'>, \'Auth\': <class \'gluon.tools.Auth\'>, \'B\': <class \'gluon.html.B\'>, \'BEAUTIFY\': <class \'gluon.html.BEAUTIFY\'>, \'BODY\': <class \'gluon.html.BODY\'>, \'BR\': <class \'gluon.html.BR\'>, \'CENTER\': <class \'gluon.html.CENTER\'>, \'CLEANUP\': <class \'gluon.validators.CLEANUP\'>, \'CODE\': <class \'gluon.html.CODE\'>, \'CRYPT\': <class \'gluon.validators.CRYPT\'>, ...}, layer=r\'C:\\APPS\\augmi-a\\applications\\init/views\\default/index.html\')'
+p110
+sS'func'
+p111
+S'restricted'
+p112
+sa(dp113
+g89
+S'C:\\APPS\\augmi-a\\applications\\init\\views\\default\\index.html'
+p114
+sg91
+(dp115
+sg97
+I56
+sg98
+(dp116
+I64
+S"response.write('</div>\\n\\t\\t\\t\\t  ', escape=False)"
+p117
+sI65
+S'response.write(\'\\n<script type="text/javascript" src="\', escape=False)'
+p118
+sI66
+S"response.write(URL(r=request,c='static',f='jquery.corner.js'))"
+p119
+sI47
+S'        pass'
+p120
+sI48
+S'    pass'
+p121
+sI49
+S'response.write(\'\\n<script type="text/javascript"><!--\\nfunction popup(url) {\\n  newwindow=window.open(url,\\\'name\\\',\\\'height=400,width=600\\\');\\n  if (window.focus) newwindow.focus();\\n  return false;\\n}\\nfunction collapse(id) { jQuery(\\\'#\\\'+id).slideToggle(); }\\nfunction fade(id,value) { if(value>0) jQuery(\\\'#\\\'+id).hide().fadeIn(\\\'slow\\\'); else jQuery(\\\'#\\\'+id).show().fadeOut(\\\'slow\\\'); }\\nfunction ajax(u,s,t) {\\n  var query="";\\n  for(i=0; i<s.length; i++) { \\n     if(i>0) query=query+"&";\\n     query=query+encodeURIComponent(s[i])+"="+encodeURIComponent(document.getElementById(s[i]).value);\\n  }\\n  jQuery.ajax({type: "POST", url: u, data: query, success: function(msg) { if(t==\\\':eval\\\') eval(msg); else document.getElementById(t).innerHTML=msg; } });  \\n}\\nString.prototype.reverse = function () { return this.split(\\\'\\\').reverse().join(\\\'\\\');};\\nfunction web2py_ajax_init() {\\n  jQuery(\\\'.hidden\\\').hide();\\n  jQuery(\\\'.error\\\').hide().slideDown(\\\'slow\\\');\\n  jQuery(\\\'.flash\\\').click(function() { jQuery(this).fadeOut(\\\'slow\\\'); return false; });\\n  jQuery(\\\'input.string\\\').attr(\\\'size\\\',50);\\n  jQuery(\\\'textarea.text\\\').attr(\\\'cols\\\',50).attr(\\\'rows\\\',10);\\n  jQuery(\\\'input.integer\\\').keyup(function(){this.value=this.value.reverse().replace(/[^0-9\\\\-]|\\\\-(?=.)/g,\\\'\\\').reverse();});\\n  jQuery(\\\'input.double\\\').keyup(function(){this.value=this.value.reverse().replace(/[^0-9\\\\-\\\\.]|[\\\\-](?=.)|[\\\\.](?=[0-9]*[\\\\.])/g,\\\'\\\').reverse();});\\n  jQuery(\\\'input.delete\\\').attr(\\\'onclick\\\',\\\'if(this.checked) if(!confirm("\', escape=False)'
+p122
+sI50
+S"response.write(T('Sure you want to delete this object?'))"
+p123
+sI51
+S'response.write(\'")) this.checked=false;\\\');\\n  try {jQuery("input.date").focus( function() {Calendar.setup({\\n     inputField:this.id, ifFormat:"\', escape=False)'
+p124
+sI52
+S"response.write(T('%Y-%m-%d'))"
+p125
+sI53
+S'response.write(\'", showsTime:false\\n  }); }); } catch(e) {};\\n  try { jQuery("input.datetime").focus( function() {Calendar.setup({\\n     inputField:this.id, ifFormat:"\', escape=False)'
+p126
+sI54
+S"response.write(T('%Y-%m-%d %H:%M:%S'))"
+p127
+sI55
+S'response.write(\'", showsTime: true,timeFormat: "24"\\n  }); }); } catch(e) {};\\n  try { jQuery("input.time").clockpick({\\n      starthour:0, endhour:23, showminutes:true, military:true\\n  }); } catch(e) {};\\n};\\njQuery(document).ready(function(){\\n   jQuery(\\\'.flash\\\').hide();\\n   if(jQuery(\\\'.flash\\\').html()!=\\\'\\\') jQuery(\\\'.flash\\\').slideDown(\\\'slow\\\');\\n   web2py_ajax_init();});\\n\\nfunction web2py_trap_form(action,target) {\\n   jQuery(\\\'#\\\'+target+\\\' form\\\').each(function(i){\\n      var form=jQuery(this);\\n      jQuery(\\\'input[type="submit"]\\\',this).click(function(){\\n         jQuery(\\\'.flash\\\').hide().html(\\\'\\\');\\n         web2py_ajax_page(\\\'post\\\',action,form.serialize(),target);\\n         return false;\\n      });\\n   });\\n}\\nfunction web2py_ajax_page(method,action,data,target) {\\n  jQuery.ajax({\\\'type\\\':method,\\\'url\\\':action,\\\'data\\\':data,\\n    \\\'beforeSend\\\':function(xhr){\\n      xhr.setRequestHeader(\\\'web2py-component-location\\\',document.location);\\n      xhr.setRequestHeader(\\\'web2py-component-element\\\',target);},\\n    \\\'complete\\\':function(xhr,text){\\n      command=xhr.getResponseHeader(\\\'web2py-component-command\\\');\\n      if(command) eval(command);\\n      flash=xhr.getResponseHeader(\\\'web2py-component-flash\\\');\\n      if(flash) jQuery(\\\'.flash\\\').html(flash).slideDown();\\n      },\\n    \\\'success\\\': function(text) {\\n      jQuery(\\\'#\\\'+target).html(text);\\n      web2py_trap_form(action,target);\\n      web2py_ajax_init();\\n      }\\n    });\\n}\\nfunction web2py_component(action,target) {\\n    jQuery(document).ready(function(){ web2py_ajax_page(\\\'get\\\',action,null,target); });\\n}\\n//--></script>\\n\', escape=False)'
+p128
+sI56
+S'response.write(page.render())'
+p129
+sI57
+S"response.write('\\n', escape=False)"
+p130
+sI58
+S'response.write(\'\\n</head>\\n<body>\\n<div class="header">\\n\\t<div class="outernav">\\n\\t\\t<div class="nav">\\n\\t\\t\\t<div class="innernav">\\n\\t\\t\\t  \', escape=False)'
+p131
+sI59
+S'response.write(MENU(response.menu))'
+p132
+sI60
+S'response.write(\'\\n\\t\\t\\t</div>\\n\\t\\t</div>\\n\\t</div>\\n\\t\\t\\n\\t<div class="clear"></div>\\n\\t\\n\\t<div class="title">\\n\\t\\t<div class="innertitle">\\n\\t\\t\\t\\n\\t\\t\\t<!-- TITLE -->\\n\\t\\t\\t\', escape=False)'
+p133
+sI61
+S'response.write(IMG(_src=URL(r=request,c=\'static/images\',f=\'augmi_logo.bmp\'),_alt="Augmi",_style="border: 0px; height: 100px; width: 156px; margin-left: 30px; margin-top: 0px;"))'
+p134
+sI62
+S'response.write(\'\\n\\n\\t\\t\\t<!-- END TITLE -->\\n\\t\\t\\t\\n\\t\\t\\t\\n\\t\\t</div>\\n\\n\\t</div>\\n</div>\\n<div id="wrap">\\n\\t<div class="pagewrapper">\\n\\t\\t<div class="innerpagewrapper">\\n\\t\\t\\t<div class="page">\\n\\t\\t\\t\\t<div class="content">\\n\\t\\t\\t\\t  <div class="flash">\', escape=False)'
+p135
+sI63
+S"response.write(response.flash or '')"
+p136
+ssg109
+S'()'
+p137
+sg111
+S'<module>'
+p138
+sasS'pyver'
+p139
+S'Python 2.5.4: C:\\Python25\\python.exe'
+p140
+sS'session'
+p141
+(dp142
+S'_formkey[no_table_create]'
+p143
+S"'69686b4e-d9d8-4e68-b07d-c8dbaf372594'"
+p144
+sS'auth'
+p145
+S'None'
+p146
+ssS'etype'
+p147
+S"<type 'exceptions.NameError'>"
+p148
+sS'date'
+p149
+S'Sat Oct 09 23:23:16 2010'
+p150
+sS'response'
+p151
+(dp152
+S'_vars'
+p153
+S"{'beats': <gluon.sql.Rows object at 0x0221C5F0>, 'form': <gluon.sqlhtml.SQLFORM object at 0x02194030>}"
+p154
+sg66
+S"<SimpleCookie: session_id_init='127-0-0-1-2c70355f-ea12-4ead-a09d-c89f35f4b9f4'>"
+p155
+sS'subtitle'
+p156
+S"<lazyT 'customize me!'>"
+p157
+sS'meta'
+p158
+S'<Storage {}>'
+p159
+sS'_view_environment'
+p160
+S"{'A': <class 'gluon.html.A'>, 'Auth': <class 'gluon.tools.Auth'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, 'BR': <class 'gluon.html.BR'>, 'CENTER': <class 'gluon.html.CENTER'>, 'CLEANUP': <class 'gluon.validators.CLEANUP'>, 'CODE': <class 'gluon.html.CODE'>, 'CRYPT': <class 'gluon.validators.CRYPT'>, ...}"
+p161
+sS'files'
+p162
+S"[<gluon.html.XML object at 0x02194570>, <gluon.html.XML object at 0x021945F0>, <gluon.html.XML object at 0x02194610>, 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js', <gluon.html.XML object at 0x0218EFD0>, <gluon.html.XML object at 0x0218EFF0>, <gluon.html.XML object at 0x0218EA70>, <gluon.html.XML object at 0x021945D0>, <gluon.html.XML object at 0x02194590>]"
+p163
+sS'title'
+p164
+S"'init'"
+p165
+sS'_caller'
+p166
+S'<function <lambda> at 0x02179F30>'
+p167
+sS'flash'
+p168
+S"<lazyT 'Welcome to Augmi, Please Login to use features!'>"
+p169
+sS'_custom_commit'
+p170
+S'None'
+p171
+sS'session_filename'
+p172
+S"r'C:\\APPS\\augmi-a\\applications\\init\\sessions\\127-0-0-1-2c70355f-ea12-4ead-a09d-c89f35f4b9f4'"
+p173
+sS'menu_auth'
+p174
+S"[[<lazyT 'Login'>, False, <gluon.html.XML object at 0x02169130>, [[<lazyT 'Register'>, False, <gluon.html.XML object at 0x0218E6F0>], [<lazyT 'Lost Password'>, False, <gluon.html.XML object at 0x0218ECB0>]]]]"
+p175
+sS'menu_edit'
+p176
+S"[[<lazyT 'Edit'>, False, <gluon.html.XML object at 0x0218EBF0>, [[<lazyT 'Controller'>, False, <gluon.html.XML object at 0x0218E730>], [<lazyT 'View'>, False, <gluon.html.XML object at 0x0218E830>], [<lazyT 'Layout'>, False, <gluon.html.XML object at 0x0218E7B0>], [<lazyT 'Stylesheet'>, False, <gluon.html.XML object at 0x0218E8B0>], [<lazyT 'DB Model'>, False, <gluon.html.XML object at 0x0218EED0>], [<lazyT 'Menu Model'>, False, <gluon.html.XML object at 0x0218EE90>], [<lazyT 'Database'>, False, <gluon.html.XML object at 0x0218EE70>]]]]"
+p177
+sg51
+S'<cStringIO.StringO object at 0x02157DE0>'
+p178
+sS'session_id_name'
+p179
+S"'session_id_init'"
+p180
+sS'_custom_rollback'
+p181
+S'None'
+p182
+sS'session_new'
+p183
+S'True'
+p184
+sS'session_id'
+p185
+S"'127-0-0-1-2c70355f-ea12-4ead-a09d-c89f35f4b9f4'"
+p186
+sS'headers'
+p187
+S"<Storage {'Expires': 'Sat, 09 Oct 2010 22:23:16 ...he, must-revalidate, post-check=0, pre-check=0'}>"
+p188
+sS'status'
+p189
+S'200'
+p190
+sS'postprocessing'
+p191
+S'[]'
+p192
+sS'menu'
+p193
+S"[[<lazyT 'Home'>, False, <gluon.html.XML object at 0x0218EC50>, []], ('My Augmi', False, <gluon.html.XML object at 0x0218EAF0>), ('Login', False, <gluon.html.XML object at 0x02169130>), ('More?', False, <gluon.html.XML object at 0x0218EAB0>)]"
+p194
+sS'view'
+p195
+S"'default/index.html'"
+p196
+ssS'locals'
+p197
+(dp198
+S'Service'
+p199
+S'<class gluon.tools.Service at 0x01860510>'
+p200
+sS'OBJECT'
+p201
+S"<class 'gluon.html.OBJECT'>"
+p202
+sS'_file'
+p203
+S'<gluon.html.XML object at 0x02194590>'
+p204
+sS'datetime'
+p205
+S"<module 'datetime' (built-in)>"
+p206
+sg141
+S"<Storage {'_formkey[no_table_create]': '69686b4e-d9d8-4e68-b07d-c8dbaf372594', 'auth': None}>"
+p207
+sS'LINK'
+p208
+S"<class 'gluon.html.LINK'>"
+p209
+sS'BR'
+p210
+S"<class 'gluon.html.BR'>"
+p211
+sS'local_import'
+p212
+S'<function <lambda> at 0x02153DF0>'
+p213
+sS'OPTGROUP'
+p214
+S"<class 'gluon.html.OPTGROUP'>"
+p215
+sS'PRE'
+p216
+S"<class 'gluon.html.PRE'>"
+p217
+sS'IS_INT_IN_RANGE'
+p218
+S"<class 'gluon.validators.IS_INT_IN_RANGE'>"
+p219
+sS'uuid'
+p220
+S"<module 'uuid' from 'C:\\Python25\\lib\\uuid.pyc'>"
+p221
+sS'IS_LOWER'
+p222
+S"<class 'gluon.validators.IS_LOWER'>"
+p223
+sS'IS_STRONG'
+p224
+S"<class 'gluon.validators.IS_STRONG'>"
+p225
+sS'Recaptcha'
+p226
+S"<class 'gluon.tools.Recaptcha'>"
+p227
+sS'cache'
+p228
+S'<gluon.cache.Cache object at 0x021691B0>'
+p229
+sS'IS_IN_DB'
+p230
+S"<class 'gluon.validators.IS_IN_DB'>"
+p231
+sS'TAG'
+p232
+S'<gluon.html.__TAG__ object at 0x01C435B0>'
+p233
+sS'_k'
+p234
+S'8'
+sS'SQLField'
+p235
+S"<class 'gluon.sql.Field'>"
+p236
+sS'BODY'
+p237
+S"<class 'gluon.html.BODY'>"
+p238
+sS'IS_DATE_IN_RANGE'
+p239
+S"<class 'gluon.validators.IS_DATE_IN_RANGE'>"
+p240
+sS'TH'
+p241
+S"<class 'gluon.html.TH'>"
+p242
+sS'URL'
+p243
+S'<function _URL at 0x02153D70>'
+p244
+sS'slider_widget'
+p245
+S'<function slider_widget at 0x0217C770>'
+p246
+sS'db'
+p247
+S"<SQLDB {'_connection': <sqlite3.Connection objec....Field object at 0x0218E170>}>, '_pool_size': 0}>"
+p248
+sg145
+S'<gluon.tools.Auth object at 0x02169150>'
+p249
+sS'P'
+S"<class 'gluon.html.P'>"
+p250
+sS'TFOOT'
+p251
+S"<class 'gluon.html.TFOOT'>"
+p252
+sS'XHTML'
+p253
+S"<class 'gluon.html.XHTML'>"
+p254
+sg82
+S'datetime.datetime(2010, 10, 9, 23, 23, 16, 375000)'
+p255
+sS'ON'
+p256
+g184
+sS'OL'
+p257
+S"<class 'gluon.html.OL'>"
+p258
+sS'TEXTAREA'
+p259
+S"<class 'gluon.html.TEXTAREA'>"
+p260
+sS'MENU'
+p261
+S"<class 'gluon.html.MENU'>"
+p262
+sS'slider_widget2'
+p263
+S'<function slider_widget2 at 0x0217C230>'
+p264
+sS'LOAD'
+p265
+S'<gluon.compileapp.LoadFactory instance at 0x0217F9E0>'
+p266
+sS'CODE'
+p267
+S"<class 'gluon.html.CODE'>"
+p268
+sS'HTTP'
+p269
+S"<class 'gluon.http.HTTP'>"
+p270
+sS'HR'
+p271
+S"<class 'gluon.html.HR'>"
+p272
+sS'IS_DATETIME'
+p273
+S"<class 'gluon.validators.IS_DATETIME'>"
+p274
+sS'HEAD'
+p275
+S"<class 'gluon.html.HEAD'>"
+p276
+sS'LABEL'
+p277
+S"<class 'gluon.html.LABEL'>"
+p278
+sS'CLEANUP'
+p279
+S"<class 'gluon.validators.CLEANUP'>"
+p280
+sS'SELECT'
+p281
+S"<class 'gluon.html.SELECT'>"
+p282
+sS'CENTER'
+p283
+S"<class 'gluon.html.CENTER'>"
+p284
+sS'prettydate'
+p285
+S'<function prettydate at 0x01841F70>'
+p286
+sS'Crud'
+p287
+S"<class 'gluon.tools.Crud'>"
+p288
+sS'Auth'
+p289
+S"<class 'gluon.tools.Auth'>"
+p290
+sS'__builtins__'
+p291
+S"{'ArithmeticError': <type 'exceptions.ArithmeticError'>, 'AssertionError': <type 'exceptions.AssertionError'>, 'AttributeError': <type 'exceptions.AttributeError'>, 'BaseException': <type 'exceptions.BaseException'>, 'DeprecationWarning': <type 'exceptions.DeprecationWarning'>, 'EOFError': <type 'exceptions.EOFError'>, 'Ellipsis': Ellipsis, 'EnvironmentError': <type 'exceptions.EnvironmentError'>, 'Exception': <type 'exceptions.Exception'>, 'False': False, ...}"
+p292
+sS'IS_LIST_OF'
+p293
+S"<class 'gluon.validators.IS_LIST_OF'>"
+p294
+sS'SQLFORM'
+p295
+S"<class 'gluon.sqlhtml.SQLFORM'>"
+p296
+sS'EM'
+p297
+S"<class 'gluon.html.EM'>"
+p298
+sS'redirect'
+p299
+S'<function redirect at 0x01819630>'
+p300
+sS'FIELDSET'
+p301
+S"<class 'gluon.html.FIELDSET'>"
+p302
+sS'IS_EQUAL_TO'
+p303
+S"<class 'gluon.validators.IS_EQUAL_TO'>"
+p304
+sS'embed64'
+p305
+S'<function embed64 at 0x01BFD0B0>'
+p306
+sS'INPUT'
+p307
+S"<class 'gluon.html.INPUT'>"
+p308
+sS'EMBED'
+p309
+S"<class 'gluon.html.EMBED'>"
+p310
+sS'FORM'
+p311
+S"<class 'gluon.html.FORM'>"
+p312
+sS'H2'
+p313
+S"<class 'gluon.html.H2'>"
+p314
+sS'H3'
+p315
+S"<class 'gluon.html.H3'>"
+p316
+sS'H1'
+p317
+S"<class 'gluon.html.H1'>"
+p318
+sS'H6'
+p319
+S"<class 'gluon.html.H6'>"
+p320
+sS'H4'
+p321
+S"<class 'gluon.html.H4'>"
+p322
+sS'H5'
+p323
+S"<class 'gluon.html.H5'>"
+p324
+sS'UL'
+p325
+S"<class 'gluon.html.UL'>"
+p326
+sS'IS_UPPER'
+p327
+S"<class 'gluon.validators.IS_UPPER'>"
+p328
+sS'xmlescape'
+p329
+S'<function xmlescape at 0x01C76AB0>'
+p330
+sS'IS_TIME'
+p331
+S"<class 'gluon.validators.IS_TIME'>"
+p332
+sS'OPTION'
+p333
+S"<class 'gluon.html.OPTION'>"
+p334
+sS'TITLE'
+p335
+S"<class 'gluon.html.TITLE'>"
+p336
+sS'CRYPT'
+p337
+S"<class 'gluon.validators.CRYPT'>"
+p338
+sS'IS_EMPTY_OR'
+p339
+S"<class 'gluon.validators.IS_EMPTY_OR'>"
+p340
+sS'MARKMIN'
+p341
+S"<class 'gluon.html.MARKMIN'>"
+p342
+sS'SCRIPT'
+p343
+S"<class 'gluon.html.SCRIPT'>"
+p344
+sS'geocode'
+p345
+S'<function geocode at 0x018418F0>'
+p346
+sS'TABLE'
+p347
+S"<class 'gluon.html.TABLE'>"
+p348
+sS'IS_IPV4'
+p349
+S"<class 'gluon.validators.IS_IPV4'>"
+p350
+sS'IS_LENGTH'
+p351
+S"<class 'gluon.validators.IS_LENGTH'>"
+p352
+sS'XML'
+p353
+S"<class 'gluon.html.XML'>"
+p354
+sS'B'
+S"<class 'gluon.html.B'>"
+p355
+sS'form'
+p356
+S'<gluon.sqlhtml.SQLFORM object at 0x02194030>'
+p357
+sS'SQLTABLE'
+p358
+S"<class 'gluon.sqlhtml.SQLTABLE'>"
+p359
+sS'IS_MATCH'
+p360
+S"<class 'gluon.validators.IS_MATCH'>"
+p361
+sS'IS_ALPHANUMERIC'
+p362
+S"<class 'gluon.validators.IS_ALPHANUMERIC'>"
+p363
+sS'SPAN'
+p364
+S"<class 'gluon.html.SPAN'>"
+p365
+sS'IS_SLUG'
+p366
+S"<class 'gluon.validators.IS_SLUG'>"
+p367
+sS'BEAUTIFY'
+p368
+S"<class 'gluon.html.BEAUTIFY'>"
+p369
+sS'META'
+p370
+S"<class 'gluon.html.META'>"
+p371
+sS'SQLDB'
+p372
+S"<class 'gluon.sql.SQLDB'>"
+p373
+sS'fetch'
+p374
+S'<function fetch at 0x01FAD830>'
+p375
+sS'IS_DATE'
+p376
+S"<class 'gluon.validators.IS_DATE'>"
+p377
+sS'IS_EMAIL'
+p378
+S"<class 'gluon.validators.IS_EMAIL'>"
+p379
+sS'IS_NOT_EMPTY'
+p380
+S"<class 'gluon.validators.IS_NOT_EMPTY'>"
+p381
+sg47
+S"<Storage {'function': 'index', 'body': <cStringI... 23, 23, 16, 328000), 'post_vars': <Storage {}>}>"
+p382
+sS'TBODY'
+p383
+S"<class 'gluon.html.TBODY'>"
+p384
+sS'Field'
+p385
+S"<class 'gluon.sql.Field'>"
+p386
+sS'beats'
+p387
+S'<gluon.sql.Rows object at 0x0221C5F0>'
+p388
+sS'Mail'
+p389
+S"<class 'gluon.tools.Mail'>"
+p390
+sS'DIV'
+p391
+S"<class 'gluon.html.DIV'>"
+p392
+sS'LEGEND'
+p393
+S"<class 'gluon.html.LEGEND'>"
+p394
+sS'IMG'
+p395
+S"<class 'gluon.html.IMG'>"
+p396
+sS'DAL'
+p397
+S'<function DAL at 0x01C19FB0>'
+p398
+sS'TT'
+p399
+S"<class 'gluon.html.TT'>"
+p400
+sS'TR'
+p401
+S"<class 'gluon.html.TR'>"
+p402
+sS'LI'
+p403
+S"<class 'gluon.html.LI'>"
+p404
+sS'IFRAME'
+p405
+S"<class 'gluon.html.IFRAME'>"
+p406
+sS'TD'
+p407
+S"<class 'gluon.html.TD'>"
+p408
+sS'PluginManager'
+p409
+S"<class 'gluon.tools.PluginManager'>"
+p410
+sS'IS_URL'
+p411
+S"<class 'gluon.validators.IS_URL'>"
+p412
+sS'A'
+S"<class 'gluon.html.A'>"
+p413
+sS'STYLE'
+p414
+S"<class 'gluon.html.STYLE'>"
+p415
+sS'IS_DATETIME_IN_RANGE'
+p416
+S"<class 'gluon.validators.IS_DATETIME_IN_RANGE'>"
+p417
+sS'HTML'
+p418
+S"<class 'gluon.html.HTML'>"
+p419
+sS'IS_IMAGE'
+p420
+S"<class 'gluon.validators.IS_IMAGE'>"
+p421
+sS'I'
+S"<class 'gluon.html.I'>"
+p422
+sS'crud'
+p423
+S'<gluon.tools.Crud object at 0x0218AAD0>'
+p424
+sS'IS_NOT_IN_DB'
+p425
+S"<class 'gluon.validators.IS_NOT_IN_DB'>"
+p426
+sg151
+S"<Storage {'body': <cStringIO.StringO object at 0...a> at 0x02179F30>, 'view': 'default/index.html'}>"
+p427
+sS'THEAD'
+p428
+S"<class 'gluon.html.THEAD'>"
+p429
+sS'IS_NULL_OR'
+p430
+S"<class 'gluon.validators.IS_EMPTY_OR'>"
+p431
+sS'IS_FLOAT_IN_RANGE'
+p432
+S"<class 'gluon.validators.IS_FLOAT_IN_RANGE'>"
+p433
+sS'IS_EXPR'
+p434
+S"<class 'gluon.validators.IS_EXPR'>"
+p435
+sS'T'
+S'<gluon.languages.translator object at 0x02169C50>'
+p436
+sS'RPXAccount'
+p437
+S"<class 'gluon.contrib.login_methods.rpx_account.RPXAccount'>"
+p438
+sS'IS_IN_SET'
+p439
+S"<class 'gluon.validators.IS_IN_SET'>"
+p440
+sS'IS_UPLOAD_FILENAME'
+p441
+S"<class 'gluon.validators.IS_UPLOAD_FILENAME'>"
+p442
+sS'time'
+p443
+S"<module 'time' (built-in)>"
+p444
+sS'IS_DECIMAL_IN_RANGE'
+p445
+S"<class 'gluon.validators.IS_DECIMAL_IN_RANGE'>"
+p446
+sssS'traceback'
+p447
+S'Traceback (most recent call last):\n  File "C:\\APPS\\augmi-a\\gluon\\restricted.py", line 188, in restricted\n    exec ccode in environment\n  File "C:\\APPS\\augmi-a\\applications\\init/views\\default/index.html", line 56, in <module>\nNameError: name \'page\' is not defined\n'
+p448
+s.

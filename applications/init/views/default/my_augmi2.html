@@ -1,0 +1,50 @@
+{{extend 'layout.html'}}
+{{
+def create_mindbeat():
+  return DIV(
+    form.custom.begin,
+    DIV(
+      TABLE(
+        TR(
+          TH(form.custom.label['Mood'],),
+          TD(form.custom.widget.Mood),
+          ),
+        TR(
+          TH(form.custom.label['Stress']),
+          TD(form.custom.widget.Stress),
+          ),
+        TR(
+          TH(form.custom.label['Focus']),
+          TD(form.custom.widget.Focus),
+          ),
+        TR(
+          TH(form.custom.label['Health']),
+          TD(form.custom.widget.Health),
+          ),
+        TR(
+          TH(form.custom.label['Energy']),
+          TD(form.custom.widget.Energy),
+          ),
+        TR(
+          TH(form.custom.label['Optimism']),
+          TD(form.custom.widget.Optimism),
+          ),
+        TR(
+          TH(),
+          TD(form.custom.submit),
+          ),
+        _align='center',
+        _class="clear"),
+      _class='outer-box',
+      ),
+    form.custom.end
+    )
+
+pass
+
+}}
+
+<h1>Group Entry Form</h1>
+{{=create_mindbeat()}}
+<h1>Errors</h1>
+{{=form.errors}} 

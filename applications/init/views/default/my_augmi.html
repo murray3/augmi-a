@@ -1,0 +1,140 @@
+{{extend 'layout.html'}}
+<script type="text/javascript" src="http://j.maxmind.com/app/geoip.js"></script>
+<script type="text/javascript">
+var country = geoip_country_name();
+var city = geoip_city();
+</script>
+ <script type="text/javascript">
+  $.ui.dialog.defaults.bgiframe = true;
+  $(document).ready(function(){
+    $("#accordion").accordion({ active: 1, collapsible: true });
+    $('#_City').val(geoip_city());
+    $('#_Country').val(geoip_country_name());
+	$('#help').click(function() {
+	$("#dialog").dialog({ width: 460 });
+	$("#dialog").dialog("open"); return false;
+	});
+  });
+  </script>
+
+	<style type="text/css">
+ui-slider-handle ui-state-default ui-corner-all ui-state-hover ui-state-active ui-state-focus
+{background: white {{=URL(r=request,c='static/images',f='electric_e0.gif')}} no-repeat scroll 50% 50%;}
+  </style>
+<div id="accordion" style="font-size:62.5%;">
+	<h3><a href="#">My Augmi Profile Settings</a></h3>
+	<div style="background: white">
+	<p>
+{{=IMG(_src=auth.userprofile.pic_url,_alt='loading')}}
+{{=auth.user.first_name}} ( {{=auth.user.email}} ) logged in via:
+{{=auth.userprofile.provider}} current location is <script>document.write(geoip_city()) </script> <script>document.write(geoip_country_name()) </script></p>
+
+{{
+def create_pic_url():
+  return DIV(
+    form1.custom.begin,
+    DIV(INPUT(_style="color:black; width: 250px; height: 15px;", _name="pic_url", _id="pic_url", _class="string",_value=auth.userprofile.pic_url)),
+    DIV("Some Accounts, i.e. Google, don't provide the Pic URL through RPX. Use this to manually input the URL.",_style="color:black;"),
+    DIV(INPUT(_style="color:black; width: 250px; height: 15px;", _name="name", _id="name", _class="string",_value=auth.userprofile.name)),
+    DIV("Your name (should not contain spaces etc)",_style="color:black;"),
+    DIV(INPUT(_style="color:black; width: 250px; height: 15px;", _name="country", _id="country", _class="string",_value=auth.userprofile.country)),
+    DIV("Your Country",_style="color:black;"),
+    DIV(INPUT(_style="color:black; width: 250px; height: 15px;", _name="email", _id="email", _class="string",_value=auth.userprofile.email)),
+    DIV("Your Email",_style="color:black;"),
+    DIV(form1.custom.submit),   
+    form1.custom.end
+    )
+pass
+}}
+
+{{=create_pic_url()}}
+{{pass}}
+
+
+
+	</div>
+	<h3><a href="#">My Augmi State Update Controls</a></h3>
+	<div style="font-size:120%;background: white;">
+	<p style="align: right; color: black;" ><a style="align: right; color: black;" id="help" href="#">Help?</a></p>
+{{
+def create_mindbeat():
+  return DIV(
+    form2.custom.begin,
+    DIV(
+	INPUT(_type="hidden", _class="hidden",  _style="color:black; width: 100px;height: 12px;", _name="_City", _id="_City"),
+    INPUT(_type="hidden", _class="hidden",  _style="color:black; width: 100px;height: 12px;", _name="_Country", _id="_Country"),
+	_class="hidden"),
+    DIV(
+      TABLE(
+        TR(
+          TD(form2.custom.widget.Mood),
+          TD(form2.custom.widget.Stress),
+          TD(form2.custom.widget.Focus),
+          TD(form2.custom.widget.Energy),
+          TD(form2.custom.widget.UTD),
+          TD(form2.custom.widget.Optimism),
+          ),
+        TR(
+          TH(form2.custom.label['Mood']),
+          TH(form2.custom.label['Stress']),
+          TH(form2.custom.label['Focus']),
+          TH(form2.custom.label['Energy']),
+          TH(form2.custom.label['UTD']),
+          TH(form2.custom.label['Optimism']),
+          ),
+        _align='center',
+        _class="clear"),
+      _class='outer-box',
+      ),
+      TABLE(
+        TR(
+          TD(INPUT(_style="color:black; width: 150px;height: 15px;", _name="no_table_username", _id="no_table_username", _class="string",_value=auth.user.first_name)),
+          TD(INPUT(_type="password", _style="color:black; width: 150px;height: 15px;", _name="no_table_password", _id="no_table_password", _class="string",_value=auth.user.password)),
+        TR(
+          TH('TWITTER USERNAME ',_style="width: 235px;height: 15px;"),
+          TH('TWITTER PASSWORD ',_style="width: 235px;height: 15px;"),
+          ),
+        _align='center',
+        _class="clear"),
+      _class='outer-box',
+      ),
+      TABLE(
+        TR(
+          TD(DIV(form2.custom.widget.Message,_style="color:black; width: 465px;")),
+        TR(
+          TH('MICRO BLOG MAX 140 CHARACTERS',_style="width: 380px;height: 15px;"),
+          ),
+        _align='center',
+        _class="clear"),
+      _class='outer-box',
+      ),
+    DIV(form2.custom.submit),   
+    form2.custom.end
+    )
+
+pass
+
+}}
+{{=create_mindbeat()}}
+{{pass}}
+	</div>
+	<h3><a href="#">My "q" Information</a></h3>
+	<div style="font-size:120%;background: white;">
+	<div style="background-color: grey;"><h3>q take messages:</h3></div>
+{{for q in q_take_messages:}}
+<div style="border-width: 1px; border-color: black;"><p>{{=q.message_take}} | Dated: {{=q.timestamp}}<p></div>
+{{pass}}
+<div style="background-color: grey;"><h3>q give messages:</h3></div>
+{{for q in q_give_messages:}}
+<div style="border-width: 1px; border-color: black;"><p>{{=q.message_give}} | Dated: {{=q.timestamp}}<p></div>
+{{pass}}
+	</div>
+</div>
+<div id="dialog" title="Augmi Help">
+	<p style="color:white;">This is your own Augmi toolbox. You can set the scores and other settings for your mindbeats here.
+	There is also the facility to micro-blog with your mindbeats and also to sync this with a twitter account.
+	At the moment this requires you to input the username and password in the dialog boxes but they are not stored in any way on our system but can be stored by your web browser for ease of access.
+	This toolbox will develop as we imrove the application, and new features will be added.</p>
+</div>
+
+ 

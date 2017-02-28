@@ -1,0 +1,31 @@
+{{extend 'layout.html'}}
+<script>
+$(document).ready(function() { 
+    $("#animate2").click(function() { 
+		if ($("#animate1").height("12px") = true) 
+		{
+			hh="100px"
+			ww="200px"
+		} else {
+			hh="12px"
+			ww="50px"
+		}
+        $("#animate1").animate({ 
+            height: hh, 
+            width: ww 
+        }, 1000, function() { 
+
+        }); 
+    }); 
+	$("#animate1").click(function() { 
+        $("#animate2").animate({ 
+            height: "12px", 
+            width: "50px" 
+        }, 1000, function() { 
+
+        }); 
+    }); 
+}); 
+</script>
+<div id="animate1" style="background: red; border: 1px solid white; height: 100px; width: 200px;"></div>
+<div id="animate2" style="background: blue; border: 1px solid white; height: 100px; width: 200px;"></div>

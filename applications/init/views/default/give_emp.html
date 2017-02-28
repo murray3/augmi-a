@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="{{=URL(request.application,'static','custom.css')}}" rel="stylesheet" type="text/css"/>
+  <script type="text/javascript" src="{{=URL(r=request,c='static',f='jquery.js')}}"></script>
+  <script type="text/javascript" src="{{=URL(r=request,c='static',f='jquery.corner.js')}}"></script>
+  <script type="text/javascript" src="{{=URL(r=request,c='static',f='ui.core.js')}}"></script>
+  <script type="text/javascript" src="{{=URL(r=request,c='static',f='ui.accordion.js')}}"></script>
+  <script type="text/javascript" src="{{=URL(r=request,c='static',f='jquery-1.3.2.min.js')}}"></script>
+  <script type="text/javascript" src="{{=URL(r=request,c='static',f='jquery-ui-1.7.2.custom.min.js')}}"></script>
+  <style type="text/css">
+  #myhandle {position: absolute;z-index: 100;height: 25px;width: 35px;top: auto;background: {{=URL(r=request,c='static/images',f='electric_e0.gif')}} 
+  </style>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>{{=response.title or request.application}}</title>
+{{response.files.append(URL(r=request,c='static',f='styles.css'))}}
+{{include 'web2py_ajax.html'}}
+</head>
+<body>
+
+
+{{def give_emp1():
+  return DIV(
+    form.custom.begin,
+    DIV(form.custom.widget.q),
+    DIV(form.custom.submit),   
+    form.custom.end,
+    _style="padding: 2px"
+    )
+
+pass
+
+}}
+
+{{=give_emp1()}}
+
+</body>
+</html>

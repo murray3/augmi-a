@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+div.t { background:black; color: white; margin:3px; width:200px;  height: 80px;
+  display:none; position: absolute; left: 0px; top: 0px; float:left; text-align:center; z-index: 2;}
+
+div.out { background:#def3ca;  color: white; margin:3px; width:200px; height: 30px; 
+   position: absolute; left: 0px; top: 0px; float:left; text-align:center; z-index: 1;}
+div.in { background:#def3ca; color: white; margin:3px; width:200px; height: 30px;
+   position: absolute; left: 0px; top: 0px; float:left; text-align:center; z-index: 1; }
+p { line-height:1em; margin:0; padding:0; z-index: 1;}
+</style>
+  <script src="jquery-1.3.2.min.js"></script>
+</head>
+<body>
+<div class="t" id="t" name="t">	
+your blog post is much bigger and contains up to 140 chars!!
+</div>
+<div class="out overout">
+  <span>your blog post</span>
+</div>
+
+
+<script>
+  var i = 0;
+  $("div.overout").mouseover(function () {
+      $("div.t").slideToggle("fast");
+	     });
+  $("div.t").mouseleave(function() {
+  $("div.t").slideToggle("fast");
+   });
+
+  var n = 0;
+  $("div.enterleave").mouseenter(function() {
+    n += 1;
+    $(this).find("span").text( "mouse enter x " + n );
+  }).mouseleave(function() {
+    $(this).find("span").text("mouse leave");
+  });
+
+</script>
+</body>
+</html>

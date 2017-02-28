@@ -1,0 +1,429 @@
+(dp1
+S'output'
+p2
+S''
+sS'layer'
+p3
+S'C:\\APPS\\augmi-a\\applications\\init/models/db.py'
+p4
+sS'code'
+p5
+S'# coding: utf8\nimport uuid\nimport datetime\nimport time; # \nnow=datetime.datetime.today() \n\n#########################################################################\n## This scaffolding model makes your app work on Google App Engine too\n#########################################################################\n\nif request.env.web2py_runtime_gae:            # if running on Google App Engine\n    db = DAL(\'gae\')                           # connect to Google BigTable\n    session.connect(request, response, db=db) # and store sessions and tickets there\n    ### or use the following lines to store sessions in Memcache\n    # from gluon.contrib.memdb import MEMDB\n    # from google.appengine.api.memcache import Client\n    # session.connect(request, response, db=MEMDB(Client())\nelse:                                         # else use a normal relational database\n    db = DAL(\'sqlite://storage.sqlite\')       # if not, use SQLite or other DB\n## if no need for session\n# session.forget()\n\n#########################################################################\n## Here is sample code if you need for \n## - email capabilities\n## - authentication (registration, login, logout, ... )\n## - authorization (role based authorization)\n## - services (xml, csv, json, xmlrpc, jsonrpc, amf, rss)\n## - crud actions\n## comment/uncomment as needed\n# from applications.init.modules.rpxauth import RPXAuth\nfrom gluon.tools import *\nauth=Auth(globals(),db)  \n# auth=RPXAuth(globals(),db)                      # authentication/authorization\n#auth.settings.hmac_key=\'sha512:dcda9600-d23b-4983-9951-d20342365db6\'   \n# auth.settings.actions_disabled=[\'register\']                   # \n# auth.settings.rpx_key=\'4ef7f97b6cb5a679e4c5c486e1b7da786b88219d\'\n# auth.settings.rpx_realm = \'augmi\'\n# auth.settings.rpx_language_preference=\'en\'\n# auth.settings.rpx_login_domain= \'http://localhost:8000\' # \'http://www.augmi-a.appspot.com\'\n# auth.settings.table_profile_name = \'profile\'\n# auth.settings.expiration = 2*3600 # 2 timer\n# auth.settings.mailer=mail                     # for user email verification\nfrom gluon.contrib.login_methods.rpx_account import RPXAccount\n\nauth.settings.actions_disabled=[\'register\',\'change_password\',\'request_reset_password\']\n    auth.settings.login_form = RPXAccount(\n      request,\n      api_key="4ef7f97b6cb5a679e4c5c486e1b7da786b88219d",\n      domain="augmi",\n      url = \'http://localhost:8000\' # "http://localhost:8000/%s/default/user/login" %\nrequest.application) \nauth.define_tables()                         # creates all needed table  \ncrud=Crud(globals(),db)                      # for CRUD helpers using auth\ncrud.settings.auth=auth  \n# crud.settings.auth=auth                      # enforces authorization on crud\n# mail=Mail()                                  # mailer\n# mail.settings.server=\'smtp.gmail.com:587\'    # your SMTP server\n# mail.settings.sender=\'you@gmail.com\'         # your email\n# mail.settings.login=\'username:password\'      # your credentials or None\n# auth.settings.mailer=mail                    # for user email verification\n# auth.settings.registration_requires_verification = True\n# auth.settings.registration_requires_approval = True\n# auth.messages.verify_email = \\\n#  \'Click on the link http://.../user/verify_email/%(key)s to verify your email\'\n## more options discussed in gluon/tools.py\n#########################################################################\n\n#########################################################################\n## Define your tables below, for example\n##\n## >>> db.define_table(\'mytable\',Field(\'myfield\',\'string\'))\n##\n## Fields can be \'string\',\'text\',\'password\',\'integer\',\'double\',\'boolean\'\n##       \'date\',\'time\',\'datetime\',\'blob\',\'upload\', \'reference TABLENAME\'\n## There is an implicit \'id integer autoincrement\' field\n## Consult manual for more options, validators, etc.\n##\n## More API examples for controllers:\n##\n## >>> db.mytable.insert(myfield=\'value\')\n## >>> rows=db(db.mytable.myfield==\'value\').select(db.mytable.ALL)\n## >>> for row in rows: print row.id, row.myfield\n#########################################################################\n\n# from applications.init.modules.rpxauth import RPXAuth\n# rpxAuth = RPXAuth(auth)\n# rpxAuth.embed = True\n# rpxAuth.allow_local = False\n# rpxAuth.api_key = "4ef7f97b6cb5a679e4c5c486e1b7da786b88219d"\n# rpxAuth.realm = "augmi"\n# rpxAuth.token_url = "http://localhost:8000/init/default/myAugmi"\n\n\nresponse.files.append("http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js")\n#response.files.append("http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-darkness/jquery-ui.css")\n\n\ndef slider_widget(f,v,**attr):\n    wrapper = DIV(_id="slider_wrapper",_style="margin-left:30px;margin-bottom:5px;width: 20px;align:center;text-align:center;color:black;")\n    inp = SQLFORM.widgets.string.widget(f,v, **attr)\n    sld = DIV(_id=\'slider_\' + inp[\'_id\'])\n    sldval = SPAN(inp[\'_value\'],_id=sld[\'_id\']+\'_val\')\n    scr1 = "jQuery(\'#%s\').hide();" % inp[\'_id\']\n    scr2 = "jQuery(\'#%s\').val(ui.value);jQuery(\'#%s\').text(ui.value);" % (inp[\'_id\'], sldval[\'_id\'])\n    jqscr = SCRIPT(scr1,"jQuery(\'#%s\').slider({orientation: \'vertical\', min: 1, max: 7, value: \'%s\',stop: function(event, ui) {%s}});" % \\\n                    (sld[\'_id\'],inp[\'_value\'],scr2),_type="text/javascript")\n    wrapper.components.extend([sld,sldval,inp,jqscr])\n    return wrapper\n    \ndef slider_widget2(f,v,**attr):\n    wrapper = DIV(_id="slider_wrapper",_style="margin-left:5px;margin-bottom:5px;width: 300px;align:center;text-align:center;color:black;")\n    inp = SQLFORM.widgets.string.widget(f,v, **attr)\n    sld = DIV(_id=\'slider_\' + inp[\'_id\'])\n    sldval = SPAN(inp[\'_value\'],_id=sld[\'_id\']+\'_val\',_style="color:yellow;")\n    scr1 = "jQuery(\'#%s\').hide();" % inp[\'_id\']\n    scr2 = "jQuery(\'#%s\').val(ui.value);jQuery(\'#%s\').text(ui.value);" % (inp[\'_id\'], sldval[\'_id\'])\n    jqscr = SCRIPT(scr1,"jQuery(\'#%s\').slider({orientation: \'horizontal\', min: 1, max: 10, value: \'%s\',stop: function(event, ui) {%s}});" % \\\n                    (sld[\'_id\'],inp[\'_value\'],scr2),_type="text/javascript")\n    wrapper.components.extend([sld,sldval,inp,jqscr])\n    return wrapper\n    \n# def my_string_widget(field,value):\n   # wrapper = INPUT(_name=field.name,_id="%s_%s\\" % (field._tablename, field.name),_class=field.type,_value=value,requires=field.requires)\n    # return wrapper\n\n\ndb.define_table(\'mindbeat\',\n    SQLField(\'uuid\',length=128,writable=False,default=str(uuid.uuid4())),\n    SQLField(\'timestamp\',\'datetime\',default=now),\n    SQLField(\'user_id\',),\n    SQLField(\'user_name\',),\n    SQLField(\'provider\',),\n    SQLField(\'pic_url\',),\n    SQLField(\'active\',\'boolean\',default=False),\n    SQLField(\'Mood\',\'integer\',label=T(\'Mood\'),widget=slider_widget,default=4),\n    SQLField(\'Stress\',\'integer\',label=T(\'Stress\'),widget=slider_widget,default=4),\n    SQLField(\'Focus\',\'integer\',label=T(\'Focus\'),widget=slider_widget,default=4),\n    SQLField(\'Energy\',\'integer\',label=T(\'Energy\'),widget=slider_widget,default=4),\n    SQLField(\'UTD\',\'integer\',label=T(\'Up-To-Date\'),widget=slider_widget,default=4),\n    SQLField(\'Optimism\',\'integer\',label=T(\'Optimism\'),widget=slider_widget,default=4),\n    SQLField(\'html\',\'string\'),\n    SQLField(\'Location\',\'string\'),\n    SQLField(\'Message\',\'string\',label=T(\'Micro-Blog\'),widget=SQLFORM.widgets.string.widget,default=""))\n    \ndb.define_table(\'q\',\n    SQLField(\'uuid\',length=128,writable=False,default=str(uuid.uuid4())),\n    SQLField(\'timestamp\',\'datetime\',default=now),\n    SQLField(\'give_user_id\',length=128),\n    SQLField(\'take_user_id\',length=128),\n    SQLField(\'message_give\',\'string\'),\n    SQLField(\'message_take\',\'string\'),\n    SQLField(\'message_admin\',\'string\'),\n    SQLField(\'q\',\'integer\',label=T(\'EMP\'),widget=slider_widget2,default=1))\n'
+p6
+sS'snapshot'
+p7
+(dp8
+S'exception'
+p9
+(dp10
+S'__getslice__'
+p11
+S"<method-wrapper '__getslice__' of exceptions.IndentationError object at 0x01FC05B0>"
+p12
+sS'text'
+p13
+S"'    auth.settings.login_form = RPXAccount(\\n'"
+p14
+sS'__str__'
+p15
+S"<method-wrapper '__str__' of exceptions.IndentationError object at 0x01FC05B0>"
+p16
+sS'__reduce__'
+p17
+S'<built-in method __reduce__ of exceptions.IndentationError object at 0x01FC05B0>'
+p18
+sS'__dict__'
+p19
+S'{}'
+p20
+sS'__init__'
+p21
+S"<method-wrapper '__init__' of exceptions.IndentationError object at 0x01FC05B0>"
+p22
+sS'__setattr__'
+p23
+S"<method-wrapper '__setattr__' of exceptions.IndentationError object at 0x01FC05B0>"
+p24
+sS'__reduce_ex__'
+p25
+S'<built-in method __reduce_ex__ of exceptions.IndentationError object at 0x01FC05B0>'
+p26
+sS'__new__'
+p27
+S'<built-in method __new__ of type object at 0x1E1CDC98>'
+p28
+sS'__class__'
+p29
+S"<type 'exceptions.IndentationError'>"
+p30
+sS'filename'
+p31
+S"r'C:\\APPS\\augmi-a\\applications\\init/models/db.py'"
+p32
+sS'lineno'
+p33
+S'47'
+p34
+sS'msg'
+p35
+S"'unexpected indent'"
+p36
+sS'__doc__'
+p37
+S"'Improper indentation.'"
+p38
+sS'__getitem__'
+p39
+S"<method-wrapper '__getitem__' of exceptions.IndentationError object at 0x01FC05B0>"
+p40
+sS'__setstate__'
+p41
+S'<built-in method __setstate__ of exceptions.IndentationError object at 0x01FC05B0>'
+p42
+sS'__getattribute__'
+p43
+S"<method-wrapper '__getattribute__' of exceptions.IndentationError object at 0x01FC05B0>"
+p44
+sS'print_file_and_line'
+p45
+S'None'
+p46
+sS'args'
+p47
+S"('unexpected indent', (r'C:\\APPS\\augmi-a\\applications\\init/models/db.py', 47, 4, '    auth.settings.login_form = RPXAccount(\\n'))"
+p48
+sS'offset'
+p49
+S'4'
+sS'__delattr__'
+p50
+S"<method-wrapper '__delattr__' of exceptions.IndentationError object at 0x01FC05B0>"
+p51
+sS'__repr__'
+p52
+S"<method-wrapper '__repr__' of exceptions.IndentationError object at 0x01FC05B0>"
+p53
+sS'__hash__'
+p54
+S"<method-wrapper '__hash__' of exceptions.IndentationError object at 0x01FC05B0>"
+p55
+ssS'evalue'
+p56
+S'unexpected indent (init/models/db.py, line 47)'
+p57
+sS'request'
+p58
+(dp59
+S'function'
+p60
+S"'index'"
+p61
+sS'body'
+p62
+S'<cStringIO.StringO object at 0x01FC3940>'
+p63
+sS'wsgi'
+p64
+S"<Storage {'start_response': <function <lambda> a...ING': 'gzip,deflate', 'HTTP_KEEP_ALIVE': '115'}}>"
+p65
+sS'extension'
+p66
+S"'html'"
+p67
+sS'vars'
+p68
+S'<Storage {}>'
+p69
+sS'cid'
+p70
+S'None'
+p71
+sS'url'
+p72
+S'<gluon.html.XML object at 0x01FC3930>'
+p73
+sg47
+S'[]'
+p74
+sS'controller'
+p75
+S"'default'"
+p76
+sS'cookies'
+p77
+S"<SimpleCookie: _csuid='X4b88544ae5e5c07c' sessio...'127-0-0-1-920f3cd9-3e10-42b3-adf8-72b51aecbdc6'>"
+p78
+sS'application'
+p79
+S"'init'"
+p80
+sS'ajax'
+p81
+S'False'
+p82
+sS'client'
+p83
+S"'127.0.0.1'"
+p84
+sS'env'
+p85
+S"<Storage {'http_user_agent': 'Mozilla/5.0 (Windo...': '', 'wsgi_run_once': False, 'path_info': '/'}>"
+p86
+sS'raw_args'
+p87
+S'None'
+p88
+sS'get_vars'
+p89
+S'<Storage {}>'
+p90
+sS'folder'
+p91
+S"r'C:\\APPS\\augmi-a\\applications\\init/'"
+p92
+sS'now'
+p93
+S'datetime.datetime(2010, 9, 19, 22, 33, 23, 390000)'
+p94
+sS'post_vars'
+p95
+S'<Storage {}>'
+p96
+ssS'frames'
+p97
+(lp98
+(dp99
+S'file'
+p100
+S'C:\\APPS\\augmi-a\\gluon\\restricted.py'
+p101
+sS'dump'
+p102
+(dp103
+S'code'
+p104
+S'"# coding: utf8\\nimport uuid\\nimport datetime\\nimpor...label=T(\'EMP\'),widget=slider_widget2,default=1))\\n"'
+p105
+sS'layer'
+p106
+S"r'C:\\APPS\\augmi-a\\applications\\init/models/db.py'"
+p107
+sS'global compile2'
+p108
+S'<function compile2 at 0x0180C1B0>'
+p109
+sS'ccode'
+p110
+S'undefined'
+p111
+ssS'lnum'
+p112
+I186
+sS'lines'
+p113
+(dp114
+I181
+S''
+sI182
+S'    try:'
+p115
+sI183
+S'        if type(code) == types.CodeType:'
+p116
+sI184
+S'            ccode = code'
+p117
+sI185
+S'        else:'
+p118
+sI186
+S'            ccode = compile2(code,layer)'
+p119
+sI187
+S''
+sI188
+S'        exec ccode in environment'
+p120
+sI189
+S'    except HTTP:'
+p121
+sI190
+S'        raise'
+p122
+ssS'call'
+p123
+S'(code="# coding: utf8\\nimport uuid\\nimport datetime\\nimpor...label=T(\'EMP\'),widget=slider_widget2,default=1))\\n", environment={\'A\': <class \'gluon.html.A\'>, \'B\': <class \'gluon.html.B\'>, \'BEAUTIFY\': <class \'gluon.html.BEAUTIFY\'>, \'BODY\': <class \'gluon.html.BODY\'>, \'BR\': <class \'gluon.html.BR\'>, \'CENTER\': <class \'gluon.html.CENTER\'>, \'CLEANUP\': <class \'gluon.validators.CLEANUP\'>, \'CODE\': <class \'gluon.html.CODE\'>, \'CRYPT\': <class \'gluon.validators.CRYPT\'>, \'DAL\': <function DAL at 0x0189D0B0>, ...}, layer=r\'C:\\APPS\\augmi-a\\applications\\init/models/db.py\')'
+p124
+sS'func'
+p125
+S'restricted'
+p126
+sa(dp127
+g100
+S'C:\\APPS\\augmi-a\\gluon\\restricted.py'
+p128
+sg102
+(dp129
+S'builtincompile'
+p130
+S'<built-in function compile>'
+p131
+sS'code'
+p132
+S'"# coding: utf8\\nimport uuid\\nimport datetime\\nimpor...label=T(\'EMP\'),widget=slider_widget2,default=1))\\n"'
+p133
+sS'code.rstrip'
+p134
+S'<built-in method rstrip of str object at 0x0202D580>'
+p135
+sS').replace'
+p136
+g111
+sS'layer'
+p137
+S"r'C:\\APPS\\augmi-a\\applications\\init/models/db.py'"
+p138
+ssg112
+I173
+sg113
+(dp139
+I168
+S''
+sI169
+S'def compile2(code,layer):'
+p140
+sI170
+S'    """'
+p141
+sI171
+S"    The +'\\n' is necessary else compile fails when code ends in a comment."
+p142
+sI172
+S'    """'
+p143
+sI173
+S"    return compile(code.rstrip().replace('\\r\\n','\\n')+'\\n', layer, 'exec')"
+p144
+sI174
+S''
+sI175
+S"def restricted(code, environment={}, layer='Unknown'):"
+p145
+sI176
+S'    """'
+p146
+sI177
+S'    runs code in environment and returns the output. if an exception occurs'
+p147
+ssg123
+S'(code="# coding: utf8\\nimport uuid\\nimport datetime\\nimpor...label=T(\'EMP\'),widget=slider_widget2,default=1))\\n", layer=r\'C:\\APPS\\augmi-a\\applications\\init/models/db.py\')'
+p148
+sg125
+S'compile2'
+p149
+sasS'pyver'
+p150
+S'Python 2.5.4: C:\\Python25\\python.exe'
+p151
+sS'session'
+p152
+(dp153
+sS'etype'
+p154
+S"<type 'exceptions.IndentationError'>"
+p155
+sS'date'
+p156
+S'Sun Sep 19 22:33:23 2010'
+p157
+sS'response'
+p158
+(dp159
+S'status'
+p160
+S'200'
+p161
+sg62
+S'<cStringIO.StringO object at 0x01FC38E0>'
+p162
+sg77
+S"<SimpleCookie: session_id_init='127-0-0-1-2b70594d-f2e5-4277-8ef2-ada8605b206d'>"
+p163
+sS'_vars'
+p164
+S'None'
+p165
+sS'menu'
+p166
+S'[]'
+p167
+sS'flash'
+p168
+S"''"
+p169
+sS'session_new'
+p170
+S'True'
+p171
+sS'_custom_rollback'
+p172
+S'None'
+p173
+sS'session_id'
+p174
+S"'127-0-0-1-2b70594d-f2e5-4277-8ef2-ada8605b206d'"
+p175
+sS'headers'
+p176
+S"<Storage {'Expires': 'Sun, 19 Sep 2010 21:33:23 ...he, must-revalidate, post-check=0, pre-check=0'}>"
+p177
+sS'meta'
+p178
+S'<Storage {}>'
+p179
+sS'session_filename'
+p180
+S"r'C:\\APPS\\augmi-a\\applications\\init\\sessions\\127-0-0-1-2b70594d-f2e5-4277-8ef2-ada8605b206d'"
+p181
+sS'postprocessing'
+p182
+S'[]'
+p183
+sS'_caller'
+p184
+S'<function <lambda> at 0x01FC0270>'
+p185
+sS'_view_environment'
+p186
+S"{'A': <class 'gluon.html.A'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, 'BR': <class 'gluon.html.BR'>, 'CENTER': <class 'gluon.html.CENTER'>, 'CLEANUP': <class 'gluon.validators.CLEANUP'>, 'CODE': <class 'gluon.html.CODE'>, 'CRYPT': <class 'gluon.validators.CRYPT'>, 'DAL': <function DAL at 0x0189D0B0>, ...}"
+p187
+sS'session_id_name'
+p188
+S"'session_id_init'"
+p189
+sS'_custom_commit'
+p190
+S'None'
+p191
+sS'files'
+p192
+S'[]'
+p193
+sS'view'
+p194
+S"'default/index.html'"
+p195
+ssS'locals'
+p196
+(dp197
+g3
+S"r'C:\\APPS\\augmi-a\\applications\\init/models/db.py'"
+p198
+sg5
+S'"# coding: utf8\\nimport uuid\\nimport datetime\\nimpor...label=T(\'EMP\'),widget=slider_widget2,default=1))\\n"'
+p199
+sssS'traceback'
+p200
+S'Traceback (most recent call last):\n  File "C:\\APPS\\augmi-a\\gluon\\restricted.py", line 186, in restricted\n    ccode = compile2(code,layer)\n  File "C:\\APPS\\augmi-a\\gluon\\restricted.py", line 173, in compile2\n    return compile(code.rstrip().replace(\'\\r\\n\',\'\\n\')+\'\\n\', layer, \'exec\')\n  File "C:\\APPS\\augmi-a\\applications\\init/models/db.py", line 47\n    auth.settings.login_form = RPXAccount(\n   ^\nIndentationError: unexpected indent\n'
+p201
+s.

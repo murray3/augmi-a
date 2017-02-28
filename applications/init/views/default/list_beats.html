@@ -1,0 +1,64 @@
+{{extend 'layout.html'}}
+<script type="text/javascript" src="{{=URL(r=request,c='static',f='jquery.corner.js')}}"></script>
+<script type="text/javascript">
+$('#rounded').corner();
+$(document).ready(function()
+{
+	try
+	{
+		var ticker_holder = $('.ticker-holder').get(0);
+		var ticker_text = $('.ticker').get(0);
+		var ticker_pos = ticker_text.parentNode.offsetWidth;
+
+		var ticker_data = $(ticker_holder).html();
+		$(ticker_text).parent().html('<marquee scrollamount="1" scrolldelay="40">' + ticker_data + '</marquee>');
+
+		$('#').hover
+		(
+			function() { $('marquee', this).get(0).stop();  },
+			function() { $('marquee', this).get(0).start(); }
+		);
+
+		
+	}
+	catch (o) {}
+});
+
+</script>
+<h5>LATEST AUGS':</h5>
+<div  style="margin-top: 10px; margin-left: 5px; ">
+<table class="list">
+{{for b in beats:}}
+ <tr style="color: #CCFFFF;">
+    <td><div id="rounded" $(this).corner(); style="margin-top: 5px; width: 72px; height: 72px; background-color: #C0C0C0;">{{=IMG(_src=b.pic_url,_alt='No Image URL?',_style="margin-left: 6px; margin-top: 6px; width: 60px; height: 60px;")}}
+	</div>
+    </td>
+    <td>
+<div id="rounded" $(this).corner(); style="margin-right: 2px; margin-left: 5px; margin-top: 5px; width: 400px; height: 72px; background-color: #C0C0C0;">
+	<div id="rounded" style="height: 18px; background-color: black; color: white;">
+	<marquee behavior="scroll" scrollamount="{{=b.Stress}}" direction="left" width="395">
+	<h3 style="margin-left: 5px; color: white; font-size: 14px">{{=b.user_name}} ({{=b.provider}}) at {{=b.timestamp}} 
+	 {{=b.Message}}
+	</h3>
+	</marquee>
+	</div>
+	<h3>
+	<img src='http://adamducker.com/public/clear.png' style='height: 22px; width: 22px; background-image: '{{=URL(r=request,c='static/images',f='mbeat.gif')}}' ; position: relative; background-position: 0 0;'>
+	{{=b.Mood}}
+	{{=b.Stress}}
+	{{=b.Focus}}
+	{{=b.Health}}
+	{{=b.Energy}}
+	{{=b.Optimism}}
+	</h3>
+	<div id="rounded" $(this).corner(); style="margin-top: 6px; height: 18px; background-color: grey; color: white;font-size: 12px;">
+    </div>
+</div>
+    </td>
+ </tr>
+	{{pass}}
+	 </table>
+
+
+	</div>
+

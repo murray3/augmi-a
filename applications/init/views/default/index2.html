@@ -1,0 +1,284 @@
+{{extend 'layout.html'}}
+<script type="text/javascript" src="{{=URL(r=request,c='static',f='jquery.corner.js')}}"></script>
+<script type="text/javascript" src="{{=URL(r=request,c='static',f='jquery.ui.core.js')}}"></script>
+<script type="text/javascript" src="{{=URL(r=request,c='static',f='jquery.marquee.js')}}"></script>
+
+<script type="text/javascript">
+if($.browser.msie==0){
+$('#rounded').corner();
+}
+//$.ui.dialog.defaults.bgiframe = true;
+$(document).ready(function()
+{
+
+{{for b in beats:}}
+
+$('#msemp_{{=b.uuid}}').click(function() {
+$('#q_user_name').val('{{=b.user_name}}');
+$('#q_user_id').val('{{=b.user_id}}');
+$('#dialog').dialog({"autoOpen": "false", "width": "350px"});
+$('#dialog').dialog('open'); return false;
+}); 
+
+if($.browser.msie==0){
+$('#mstabsl_{{=b.uuid}}').corner();
+$('#mstabsr_{{=b.uuid}}').corner();
+$('#msemp_{{=b.uuid}}').corner();
+}
+$('div.msmessage_{{=b.uuid}} marquee').marquee()
+ $("div.msmessage_{{=b.uuid}}").click(function () {
+       $('div.msfullmessage_{{=b.uuid}}').show();
+      // $('div.msmbeats_{{=b.uuid}}').hide();
+      // $("div.mstabs1_{{=b.uuid}}").hide();
+      // $("div.mstabs2_{{=b.uuid}}").hide();
+      // $('div.mstabsl_{{=b.uuid}}').hide();
+      // $('div.mstabsr_{{=b.uuid}}').hide();
+      // $('div.msemp_{{=b.uuid}}').hide();
+      // $("div.msmessage_{{=b.uuid}}").height(66);
+	     });
+  $("div.msfullmessage_{{=b.uuid}}").mouseleave(function() {
+         $('div.msfullmessage_{{=b.uuid}}').hide();
+  //$('div.msmessage_{{=b.uuid}} marquee').behavior("scroll");
+  // $("div.msmessage_{{=b.uuid}}").height(18);
+      // $('div.msmbeats_{{=b.uuid}}').show();
+      // $("div.mstabs1_{{=b.uuid}}").show();
+      // $("div.mstabs2_{{=b.uuid}}").show();
+      // $('div.mstabsl_{{=b.uuid}}').show();
+      // $('div.mstabsr_{{=b.uuid}}').show();
+      // $('div.msemp_{{=b.uuid}}').show();
+   });
+// $('div.msmessage marquee').marquee('pointer').mouseover(function () {
+  // $(this).trigger('stop');
+// }).mouseout(function () {
+  // $(this).trigger('start');
+// }).mousemove(function (event) {
+  // if ($(this).data('drag') == true) {
+    // this.scrollLeft = $(this).data('scrollX') + ($(this).data('x') - event.clientX);
+  // }
+// }).mousedown(function (event) {
+  // $(this).data('drag', true).data('x', event.clientX).data('scrollX', this.scrollLeft);
+// }).mouseup(function () {
+  // $(this).data('drag', false);
+// });
+$("#mstabsl_{{=b.uuid}}").click(function(){
+if($.browser.msie==0){
+  $(".mstabs1_{{=b.uuid}}").animate({"width": "252px","left": "108px","z-index": "5"}, "fast");
+  $(".msmbeats_{{=b.uuid}}").animate({"width": "0px","z-index": "1","opacity": "0"}, "fast");
+}
+if($.browser.msie){
+  $(".msmbeats_{{=b.uuid}}").animate({"width": "0px","z-index": "1","opacity": "0"}, "fast");
+  $(".mstabs1_{{=b.uuid}}").animate({"width": "252px","left": "12px","z-index": "5"}, "fast");
+}
+
+if($.browser.msie==0){
+  $(".mstabs2_{{=b.uuid}}").animate({"z-index": "4","padding": "1px","left": "328px","width": "60px","opacity": "1","border": "1px solid white"}, "fast");
+}
+if($.browser.msie){
+  $(".mstabs2_{{=b.uuid}}").animate({"z-index": "4","padding": "1px","left": "-14px","width": "60px","opacity": "1"}, "fast");
+}
+
+
+//  $(".mstabs1_{{=b.uuid}}").animate({"border": "1px solid white"}, "fast");
+//  $(".mstabs2_{{=b.uuid}}").animate({"border": "1px solid white"}, "fast");
+if($.browser.msie){
+$(".mstabs2_{{=b.uuid}}").css({"border": "1px solid white"});
+}
+});
+
+$("#mstabsr_{{=b.uuid}}").click(function(){
+  $(".mstabs1_{{=b.uuid}}").animate({"width": "60px","left": "330px","z-index": "1"}, "fast");
+  $(".msmbeats_{{=b.uuid}}").animate({"width": "252px","z-index": "3","opacity": "3"}, "fast");
+  $(".mstabs2_{{=b.uuid}}").animate({"z-index": "1","padding": "0px","border": "0px","left": "108px","width": "0px","opacity": "0"}, "fast");
+
+});
+	{{pass}}
+
+});
+</script>
+<style type="text/css">
+{{for b in beats:}}
+
+div.microsite_dialog_{{=b.uuid}}{
+	z-index: 1;
+	position: relative;
+	border: 3px; 
+	left: 0px;
+	top: 0px;
+	background-color: #989898 ;
+	width: 518px;
+	height: 78px;
+	padding: 0px 0px 0px 0px;
+}
+
+div.microsite_{{=b.uuid}}{
+	z-index: 1;
+	position: relative;
+	border: 3px; 
+	left: 0px;
+	top: 0px;
+	background-color: #989898 ;
+	width: 518px;
+	height: 78px;
+	padding: 0px 0px 0px 0px;
+}
+
+div.msmessage_{{=b.uuid}}{
+	float: left;
+	position: absolute;
+	left: 105px;
+	top: 4px;
+	background-color: black;
+	width: 406px;
+	height: 18px;
+	padding: 1px
+}
+
+div.msfullmessage_{{=b.uuid}}{
+	z-index: 5;
+	display: none;
+	float: left;
+	position: absolute;
+	left: 105px;
+	top: 4px;
+	background-color: black;
+	width: 406px;
+	height: 68px;
+	padding: 1px
+}
+
+div.msmbeats_{{=b.uuid}}{
+	z-index: 4;
+	float: left;
+	position: absolute;
+	left: 108px;
+	top: 28px;
+	background-color: #b2b2b2;
+	border: 1px solid white;
+	width: 252px;
+	height: 42px;
+	padding: 1px
+}
+
+div.mstabs1_{{=b.uuid}}{
+	z-index: 3;
+	float: left;
+	position: absolute;
+	left: 330px;
+	top: 28px;
+	background-color: #4c4c4c;
+	border: 1px solid white;
+	width: 60px;
+	height: 42px;
+	padding: 1px
+}
+
+div.mstabs2_{{=b.uuid}}{
+	z-index: 1;
+	float: left;
+	position: relative;
+	left: 108px;
+	top: 28px;
+	background-color: #b2b2b2;
+	border: 0px solid white;
+	width: 0px;
+	height: 42px;
+	padding: 0px;
+	opacity: 0;
+}
+
+div.mstabs3_{{=b.uuid}}{
+	z-index: 1;
+	float: left;
+	position: relative;
+	left: -50px;
+	top: 8px;
+	background-color: #b2b2b2;
+	border: 0px solid white;
+	width: 50px;
+	height: 42px;
+	padding: 1px
+}
+
+div.mstabsl_{{=b.uuid}}{
+	float: left;
+	position: absolute;
+	left: 400px;
+	top: 28px;
+	background-color: #4c4c4c;
+	border: 1px solid grey;
+	width: 26px;
+	height: 42px;
+	padding: 1px;
+	margin-left: 0px; 
+	margin-top: 0px;
+}
+
+div.mstabsr_{{=b.uuid}}{
+	float: left;
+	position: absolute;
+	left: 433px;
+	top: 28px;
+	background-color: #4c4c4c;
+	border: 1px solid grey;
+	width: 26px;
+	height: 42px;
+	padding: 1px;
+	margin-left: 0px; 
+	margin-top: 0px;
+}
+
+div.msemp_{{=b.uuid}}{
+	float: left;
+	position: absolute;
+	left: 466px;
+	top: 28px;
+	background-color: #b2b2b2;
+	border: 1px solid grey;
+	width: 42px;
+	height: 42px;
+	padding: 1px
+}
+{{pass}}
+</style>
+<h5>Latest Mind Beats:</h5>
+{{for b in beats:}}
+<div class="tablerow">
+<div class="microsite_{{=b.uuid}}" id="rounded">
+<div class="mslocation" id="rounded">{{=b.Location}}</div>
+<div class="msmessage_{{=b.uuid}}" id="rounded"><marquee behavior="scroll" scrollamount="1" direction="left" width="405"><h3 style="margin-left: 0px; color: white; font-size: 14px">{{=b.user_name}} ({{=b.provider}}) at {{=b.timestamp}}  {{=b.Message}}</h3></marquee></div>
+<div class="msfullmessage_{{=b.uuid}}" id="rounded"><h3 style="margin-left: 0px; color: white; font-size: 14px">{{=b.user_name}} ({{=b.provider}}) at {{=b.timestamp}}  {{=b.Message}}</h3></div>
+<div class="msmypic" id="rounded">{{=IMG(_src=b.pic_url,_alt='?',_style="margin-left: 2px; margin-top: 2px; width: 38px; height: 38px;")}}</div>
+<div class="msstress" id="rounded"><img id="rounded" src="{{=URL(r=request,c='static/images',f='clear.png')}}" style="margin-left: 0px;  margin-top: 0px; height: 42px; width: 42px; background-image: url('/init/static/images/throbber3.gif'); position: relative; background-position: {{=b.Stress_html}}  0;" TITLE="My Stress Level is {{=b.Stress}}"></div>
+<div class="msmbeats_{{=b.uuid}}" id="rounded"><img src="{{=URL(r=request,c='static/images',f='clear.png')}}" style="border: 0px; height: 42px; width: 50px; background-image: url('/init/static/images/mbeat5.gif') ;  margin-left: 1px; margin-right: -1px; margin-top: 0px;  background-position: {{=b.Mood_html}} 0;" TITLE="My Mood Level is {{=b.Mood}}"><img src="{{=URL(r=request,c='static/images',f='clear.png')}}" style="border: 0px; height: 42px; width: 50px; background-image: url('/init/static/images/mbeat5.gif') ;  margin-left: 1px; margin-right: -1px;  margin-top: 0px; background-position: {{=b.Focus_html}} 0;" TITLE="My Focus Level is {{=b.Focus}}"><img src="{{=URL(r=request,c='static/images',f='clear.png')}}" style="border: 0px; height: 42px; width: 50px; background-image: url('/init/static/images/mbeat5.gif') ;  margin-left: 1px; margin-right: -1px;  margin-top: 0px; background-position: {{=b.Energy_html}} 0;" TITLE="My Energy Level is {{=b.Energy}}"><img src="{{=URL(r=request,c='static/images',f='clear.png')}}" style="border: 0px; height: 42px; width: 50px; background-image: url('/init/static/images/mbeat5.gif') ;  margin-left: 1px; margin-right: -1px;  margin-top: 0px; position: relative; background-position: {{=b.UTD_html}} 0;" TITLE="My 'up to date' Level is {{=b.UTD}}"><img src="{{=URL(r=request,c='static/images',f='clear.png')}}" style="border: 0px; height: 42px; width: 50px; background-image: url('/init/static/images/mbeat5.gif') ;  margin-left: 1px; margin-right: -1px;  margin-top: 0px;  background-position: {{=b.Optimism_html}} 0;" TITLE="My Optimisim Level is {{=b.Optimism}}"></div>
+<div class="mstabs1_{{=b.uuid}}" id="rounded"></div>
+<div class="mstabs2_{{=b.uuid}}" id="rounded"></div>
+<div class="mstabsl_{{=b.uuid}}" id="mstabsl_{{=b.uuid}}"><</div>
+<div class="mstabsr_{{=b.uuid}}" id="mstabsr_{{=b.uuid}}">></div>
+<div class="msemp_{{=b.uuid}}" id="rounded" >
+<a href="#" id="msemp_{{=b.uuid}}"><img  src="{{=URL(r=request,c='static/images',f='emp.gif')}}" style="height: 38px; width: 20px; margin-left: 10px; margin-top: 1px"  TITLE="Send Empathy"></a></div>
+</div>
+</div>
+	{{pass}}
+	
+{{def give_emp1():
+  return DIV(
+    form.custom.begin,
+    INPUT(_style="color:black; width: 20px; height: 15px;",_type="hidden", _name="q_user_name", _id="q_user_name",_class="string"),
+    INPUT(_style="color:black; width: 20px; height: 15px;",_type="hidden", _name="q_user_id", _id="q_user_id",_class="string"),
+    DIV(form.custom.widget.q),
+    DIV(form.custom.submit),   
+    form.custom.end
+    )
+
+pass
+
+}}
+
+<div id="dialog" class="dialog" style="display: none;" title="Send Empathy To This Person">
+{{
+   give_emp1()
+   }}
+
+
+</div>
+

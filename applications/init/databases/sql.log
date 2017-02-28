@@ -1,0 +1,113 @@
+timestamp: 2009-11-21T11:45:17.343000
+CREATE TABLE auth_user(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	uuid CHAR(64) UNIQUE,
+	first_name CHAR(128),
+	last_name CHAR(128),
+	email CHAR(128),
+	password CHAR(512),
+	registration_key CHAR(128)
+);
+success!
+timestamp: 2009-11-21T11:45:17.468000
+CREATE TABLE profile(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	user_id REFERENCES auth_user(id) ON DELETE CASCADE,
+	provider CHAR(128),
+	identifier CHAR(256),
+	name CHAR(128),
+	pic_url CHAR(256),
+	email CHAR(128),
+	country CHAR(128),
+	postalcode CHAR(64),
+	registration_key CHAR(128)
+);
+success!
+timestamp: 2009-11-21T11:45:17.578000
+CREATE TABLE auth_group(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	role CHAR(512),
+	description TEXT
+);
+success!
+timestamp: 2009-11-21T11:45:17.640000
+CREATE TABLE auth_membership(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	user_id REFERENCES auth_user(id) ON DELETE CASCADE,
+	group_id REFERENCES auth_group(id) ON DELETE CASCADE
+);
+success!
+timestamp: 2009-11-21T11:45:17.734000
+CREATE TABLE auth_permission(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	group_id REFERENCES auth_group(id) ON DELETE CASCADE,
+	name CHAR(512),
+	table_name CHAR(512),
+	record_id INTEGER
+);
+success!
+timestamp: 2009-11-21T11:45:17.828000
+CREATE TABLE auth_event(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	time_stamp TIMESTAMP,
+	client_ip CHAR(512),
+	user_id REFERENCES auth_user(id) ON DELETE CASCADE,
+	origin CHAR(512),
+	description TEXT
+);
+success!
+timestamp: 2009-11-21T11:45:17.937000
+CREATE TABLE mindbeat(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	uuid CHAR(128),
+	timestamp TIMESTAMP,
+	active CHAR(1),
+	Mood INTEGER,
+	Stress INTEGER,
+	Focus INTEGER,
+	Health INTEGER,
+	Energy INTEGER,
+	Optimism INTEGER
+);
+success!
+timestamp: 2009-11-21T14:07:13.968000
+ALTER TABLE mindbeat ADD user_name REFERENCES auth_user(id) ON DELETE CASCADE;
+timestamp: 2009-11-23T17:24:06.109000
+ALTER TABLE mindbeat ADD user_id CHAR(512);
+timestamp: 2009-11-28T23:10:36.609000
+ALTER TABLE mindbeat ADD Message TEXT;
+timestamp: 2009-11-29T22:56:16.937000
+ALTER TABLE mindbeat ADD provider CHAR(512);
+timestamp: 2009-12-02T22:49:58.968000
+ALTER TABLE mindbeat ADD pic_url CHAR(512);
+timestamp: 2009-12-07T18:29:52.625000
+CREATE TABLE q(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	uuid CHAR(128),
+	timestamp TIMESTAMP,
+	user_name REFERENCES auth_user(id) ON DELETE CASCADE,
+	q INTEGER
+);
+success!
+timestamp: 2010-03-11T23:42:04.796000
+ALTER TABLE mindbeat ADD html CHAR(512);
+timestamp: 2010-04-17T23:46:33.031000
+ALTER TABLE q ADD user_id REFERENCES auth_user(id) ON DELETE CASCADE;
+timestamp: 2010-04-18T10:24:39.906000
+ALTER TABLE q ADD message_take CHAR(512);
+timestamp: 2010-04-18T10:24:39.984000
+ALTER TABLE q ADD message_give CHAR(512);
+timestamp: 2010-04-18T10:24:40.093000
+ALTER TABLE q ADD message_admin CHAR(512);
+timestamp: 2010-04-27T10:01:04.046000
+ALTER TABLE mindbeat ADD Location CHAR(512);
+timestamp: 2010-04-28T11:48:09.656000
+ALTER TABLE profile ADD q CHAR(64);
+timestamp: 2010-04-28T23:29:51.156000
+ALTER TABLE q ADD give_user_id CHAR(512);
+timestamp: 2010-04-28T23:29:51.296000
+ALTER TABLE q ADD take_user_id CHAR(512);
+timestamp: 2010-05-02T10:42:04.828000
+ALTER TABLE mindbeat ADD UTD INTEGER;
+timestamp: 2010-09-19T22:38:40.578000
+ALTER TABLE auth_user ADD reset_password_key CHAR(512);

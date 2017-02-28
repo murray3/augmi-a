@@ -1,0 +1,869 @@
+(dp1
+S'output'
+p2
+S''
+sS'layer'
+p3
+S'C:\\APPS\\augmi-a\\applications\\init/models/db.py'
+p4
+sS'code'
+p5
+S'# coding: utf8\nimport uuid\nimport datetime\nimport time; # \nnow=datetime.datetime.today() \n\n#########################################################################\n## This scaffolding model makes your app work on Google App Engine too\n#########################################################################\n\nif request.env.web2py_runtime_gae:            # if running on Google App Engine\n    db = DAL(\'gae\')                           # connect to Google BigTable\n    session.connect(request, response, db=db) # and store sessions and tickets there\n    ### or use the following lines to store sessions in Memcache\n    # from gluon.contrib.memdb import MEMDB\n    # from google.appengine.api.memcache import Client\n    # session.connect(request, response, db=MEMDB(Client())\nelse:                                         # else use a normal relational database\n    db = DAL(\'sqlite://storage.sqlite\')       # if not, use SQLite or other DB\n## if no need for session\n# session.forget()\n\n#########################################################################\n## Here is sample code if you need for \n## - email capabilities\n## - authentication (registration, login, logout, ... )\n## - authorization (role based authorization)\n## - services (xml, csv, json, xmlrpc, jsonrpc, amf, rss)\n## - crud actions\n## comment/uncomment as needed\n# from applications.init.modules.rpxauth import RPXAuth\nfrom gluon.tools import *\nauth=Auth(globals(),db)  \n# auth=RPXAuth(globals(),db)                      # authentication/authorization\n#auth.settings.hmac_key=\'sha512:dcda9600-d23b-4983-9951-d20342365db6\'   \n# auth.settings.actions_disabled=[\'register\']                   # \n# auth.settings.rpx_key=\'4ef7f97b6cb5a679e4c5c486e1b7da786b88219d\'\n# auth.settings.rpx_realm = \'augmi\'\n# auth.settings.rpx_language_preference=\'en\'\n# auth.settings.rpx_login_domain= \'http://localhost:8000\' # \'http://www.augmi-a.appspot.com\'\n# auth.settings.table_profile_name = \'profile\'\n# auth.settings.expiration = 2*3600 # 2 timer\n# auth.settings.mailer=mail                     # for user email verification\nfrom gluon.contrib.login_methods.rpx_account import RPXAccount\n\nauth.settings.actions_disabled=[\'register\',\'change_password\',\'request_reset_password\']\nauth.settings.login_form = RPXAccount(request,\napi_key="4ef7f97b6cb5a679e4c5c486e1b7da786b88219d",\ndomain="augmi",\nurl = \'http://localhost:8000\' % # "http://localhost:8000/%s/default/user/login" %\nrequest.application) \nauth.define_tables()                         # creates all needed table  \ncrud=Crud(globals(),db)                      # for CRUD helpers using auth\ncrud.settings.auth=auth  \n# crud.settings.auth=auth                      # enforces authorization on crud\n# mail=Mail()                                  # mailer\n# mail.settings.server=\'smtp.gmail.com:587\'    # your SMTP server\n# mail.settings.sender=\'you@gmail.com\'         # your email\n# mail.settings.login=\'username:password\'      # your credentials or None\n# auth.settings.mailer=mail                    # for user email verification\n# auth.settings.registration_requires_verification = True\n# auth.settings.registration_requires_approval = True\n# auth.messages.verify_email = \\\n#  \'Click on the link http://.../user/verify_email/%(key)s to verify your email\'\n## more options discussed in gluon/tools.py\n#########################################################################\n\n#########################################################################\n## Define your tables below, for example\n##\n## >>> db.define_table(\'mytable\',Field(\'myfield\',\'string\'))\n##\n## Fields can be \'string\',\'text\',\'password\',\'integer\',\'double\',\'boolean\'\n##       \'date\',\'time\',\'datetime\',\'blob\',\'upload\', \'reference TABLENAME\'\n## There is an implicit \'id integer autoincrement\' field\n## Consult manual for more options, validators, etc.\n##\n## More API examples for controllers:\n##\n## >>> db.mytable.insert(myfield=\'value\')\n## >>> rows=db(db.mytable.myfield==\'value\').select(db.mytable.ALL)\n## >>> for row in rows: print row.id, row.myfield\n#########################################################################\n\n# from applications.init.modules.rpxauth import RPXAuth\n# rpxAuth = RPXAuth(auth)\n# rpxAuth.embed = True\n# rpxAuth.allow_local = False\n# rpxAuth.api_key = "4ef7f97b6cb5a679e4c5c486e1b7da786b88219d"\n# rpxAuth.realm = "augmi"\n# rpxAuth.token_url = "http://localhost:8000/init/default/myAugmi"\n\n\nresponse.files.append("http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js")\n#response.files.append("http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-darkness/jquery-ui.css")\n\n\ndef slider_widget(f,v,**attr):\n    wrapper = DIV(_id="slider_wrapper",_style="margin-left:30px;margin-bottom:5px;width: 20px;align:center;text-align:center;color:black;")\n    inp = SQLFORM.widgets.string.widget(f,v, **attr)\n    sld = DIV(_id=\'slider_\' + inp[\'_id\'])\n    sldval = SPAN(inp[\'_value\'],_id=sld[\'_id\']+\'_val\')\n    scr1 = "jQuery(\'#%s\').hide();" % inp[\'_id\']\n    scr2 = "jQuery(\'#%s\').val(ui.value);jQuery(\'#%s\').text(ui.value);" % (inp[\'_id\'], sldval[\'_id\'])\n    jqscr = SCRIPT(scr1,"jQuery(\'#%s\').slider({orientation: \'vertical\', min: 1, max: 7, value: \'%s\',stop: function(event, ui) {%s}});" % \\\n                    (sld[\'_id\'],inp[\'_value\'],scr2),_type="text/javascript")\n    wrapper.components.extend([sld,sldval,inp,jqscr])\n    return wrapper\n    \ndef slider_widget2(f,v,**attr):\n    wrapper = DIV(_id="slider_wrapper",_style="margin-left:5px;margin-bottom:5px;width: 300px;align:center;text-align:center;color:black;")\n    inp = SQLFORM.widgets.string.widget(f,v, **attr)\n    sld = DIV(_id=\'slider_\' + inp[\'_id\'])\n    sldval = SPAN(inp[\'_value\'],_id=sld[\'_id\']+\'_val\',_style="color:yellow;")\n    scr1 = "jQuery(\'#%s\').hide();" % inp[\'_id\']\n    scr2 = "jQuery(\'#%s\').val(ui.value);jQuery(\'#%s\').text(ui.value);" % (inp[\'_id\'], sldval[\'_id\'])\n    jqscr = SCRIPT(scr1,"jQuery(\'#%s\').slider({orientation: \'horizontal\', min: 1, max: 10, value: \'%s\',stop: function(event, ui) {%s}});" % \\\n                    (sld[\'_id\'],inp[\'_value\'],scr2),_type="text/javascript")\n    wrapper.components.extend([sld,sldval,inp,jqscr])\n    return wrapper\n    \n# def my_string_widget(field,value):\n   # wrapper = INPUT(_name=field.name,_id="%s_%s\\" % (field._tablename, field.name),_class=field.type,_value=value,requires=field.requires)\n    # return wrapper\n\n\ndb.define_table(\'mindbeat\',\n    SQLField(\'uuid\',length=128,writable=False,default=str(uuid.uuid4())),\n    SQLField(\'timestamp\',\'datetime\',default=now),\n    SQLField(\'user_id\',),\n    SQLField(\'user_name\',),\n    SQLField(\'provider\',),\n    SQLField(\'pic_url\',),\n    SQLField(\'active\',\'boolean\',default=False),\n    SQLField(\'Mood\',\'integer\',label=T(\'Mood\'),widget=slider_widget,default=4),\n    SQLField(\'Stress\',\'integer\',label=T(\'Stress\'),widget=slider_widget,default=4),\n    SQLField(\'Focus\',\'integer\',label=T(\'Focus\'),widget=slider_widget,default=4),\n    SQLField(\'Energy\',\'integer\',label=T(\'Energy\'),widget=slider_widget,default=4),\n    SQLField(\'UTD\',\'integer\',label=T(\'Up-To-Date\'),widget=slider_widget,default=4),\n    SQLField(\'Optimism\',\'integer\',label=T(\'Optimism\'),widget=slider_widget,default=4),\n    SQLField(\'html\',\'string\'),\n    SQLField(\'Location\',\'string\'),\n    SQLField(\'Message\',\'string\',label=T(\'Micro-Blog\'),widget=SQLFORM.widgets.string.widget,default=""))\n    \ndb.define_table(\'q\',\n    SQLField(\'uuid\',length=128,writable=False,default=str(uuid.uuid4())),\n    SQLField(\'timestamp\',\'datetime\',default=now),\n    SQLField(\'give_user_id\',length=128),\n    SQLField(\'take_user_id\',length=128),\n    SQLField(\'message_give\',\'string\'),\n    SQLField(\'message_take\',\'string\'),\n    SQLField(\'message_admin\',\'string\'),\n    SQLField(\'q\',\'integer\',label=T(\'EMP\'),widget=slider_widget2,default=1))\n'
+p6
+sS'snapshot'
+p7
+(dp8
+S'exception'
+p9
+(dp10
+S'__hash__'
+p11
+S"<method-wrapper '__hash__' of exceptions.TypeError object at 0x021F8418>"
+p12
+sS'__setattr__'
+p13
+S"<method-wrapper '__setattr__' of exceptions.TypeError object at 0x021F8418>"
+p14
+sS'__reduce_ex__'
+p15
+S'<built-in method __reduce_ex__ of exceptions.TypeError object at 0x021F8418>'
+p16
+sS'__getslice__'
+p17
+S"<method-wrapper '__getslice__' of exceptions.TypeError object at 0x021F8418>"
+p18
+sS'__getitem__'
+p19
+S"<method-wrapper '__getitem__' of exceptions.TypeError object at 0x021F8418>"
+p20
+sS'__setstate__'
+p21
+S'<built-in method __setstate__ of exceptions.TypeError object at 0x021F8418>'
+p22
+sS'__reduce__'
+p23
+S'<built-in method __reduce__ of exceptions.TypeError object at 0x021F8418>'
+p24
+sS'__str__'
+p25
+S"<method-wrapper '__str__' of exceptions.TypeError object at 0x021F8418>"
+p26
+sS'args'
+p27
+S"('not all arguments converted during string formatting',)"
+p28
+sS'__getattribute__'
+p29
+S"<method-wrapper '__getattribute__' of exceptions.TypeError object at 0x021F8418>"
+p30
+sS'__class__'
+p31
+S"<type 'exceptions.TypeError'>"
+p32
+sS'__delattr__'
+p33
+S"<method-wrapper '__delattr__' of exceptions.TypeError object at 0x021F8418>"
+p34
+sS'__repr__'
+p35
+S"<method-wrapper '__repr__' of exceptions.TypeError object at 0x021F8418>"
+p36
+sS'__dict__'
+p37
+S'{}'
+p38
+sS'__doc__'
+p39
+S"'Inappropriate argument type.'"
+p40
+sS'__init__'
+p41
+S"<method-wrapper '__init__' of exceptions.TypeError object at 0x021F8418>"
+p42
+sS'__new__'
+p43
+S'<built-in method __new__ of type object at 0x1E1CCD78>'
+p44
+ssS'evalue'
+p45
+S'not all arguments converted during string formatting'
+p46
+sS'request'
+p47
+(dp48
+S'function'
+p49
+S"'index'"
+p50
+sS'body'
+p51
+S'<cStringIO.StringO object at 0x022E2B60>'
+p52
+sS'wsgi'
+p53
+S"<Storage {'start_response': <function <lambda> a...ING': 'gzip,deflate', 'HTTP_KEEP_ALIVE': '115'}}>"
+p54
+sS'extension'
+p55
+S"'html'"
+p56
+sS'vars'
+p57
+S'<Storage {}>'
+p58
+sS'cid'
+p59
+S'None'
+p60
+sS'url'
+p61
+S'<gluon.html.XML object at 0x022E21B0>'
+p62
+sg27
+S'[]'
+p63
+sS'controller'
+p64
+S"'default'"
+p65
+sS'cookies'
+p66
+S"<SimpleCookie: _csuid='X4b88544ae5e5c07c' sessio...'127-0-0-1-920f3cd9-3e10-42b3-adf8-72b51aecbdc6'>"
+p67
+sS'application'
+p68
+S"'init'"
+p69
+sS'ajax'
+p70
+S'False'
+p71
+sS'client'
+p72
+S"'127.0.0.1'"
+p73
+sS'env'
+p74
+S"<Storage {'http_user_agent': 'Mozilla/5.0 (Windo...': '', 'wsgi_run_once': False, 'path_info': '/'}>"
+p75
+sS'raw_args'
+p76
+S'None'
+p77
+sS'get_vars'
+p78
+S'<Storage {}>'
+p79
+sS'folder'
+p80
+S"r'C:\\APPS\\augmi-a\\applications\\init/'"
+p81
+sS'now'
+p82
+S'datetime.datetime(2010, 9, 19, 22, 38, 5, 718000)'
+p83
+sS'post_vars'
+p84
+S'<Storage {}>'
+p85
+ssS'frames'
+p86
+(lp87
+(dp88
+S'file'
+p89
+S'C:\\APPS\\augmi-a\\gluon\\restricted.py'
+p90
+sS'dump'
+p91
+(dp92
+S'environment'
+p93
+S"{'A': <class 'gluon.html.A'>, 'Auth': <class 'gluon.tools.Auth'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, 'BR': <class 'gluon.html.BR'>, 'CENTER': <class 'gluon.html.CENTER'>, 'CLEANUP': <class 'gluon.validators.CLEANUP'>, 'CODE': <class 'gluon.html.CODE'>, 'CRYPT': <class 'gluon.validators.CRYPT'>, ...}"
+p94
+sS'ccode'
+p95
+S'<code object <module> at 02227068, file "C:\\APPS\\augmi-a\\applications\\init/models/db.py", line 2>'
+p96
+ssS'lnum'
+p97
+I188
+sS'lines'
+p98
+(dp99
+I192
+S'        # XXX Show exception in Wing IDE if running in debugger'
+p100
+sI183
+S'        if type(code) == types.CodeType:'
+p101
+sI184
+S'            ccode = code'
+p102
+sI185
+S'        else:'
+p103
+sI186
+S'            ccode = compile2(code,layer)'
+p104
+sI187
+S''
+sI188
+S'        exec ccode in environment'
+p105
+sI189
+S'    except HTTP:'
+p106
+sI190
+S'        raise'
+p107
+sI191
+S'    except Exception:'
+p108
+ssS'call'
+p109
+S'(code="# coding: utf8\\nimport uuid\\nimport datetime\\nimpor...label=T(\'EMP\'),widget=slider_widget2,default=1))\\n", environment={\'A\': <class \'gluon.html.A\'>, \'Auth\': <class \'gluon.tools.Auth\'>, \'B\': <class \'gluon.html.B\'>, \'BEAUTIFY\': <class \'gluon.html.BEAUTIFY\'>, \'BODY\': <class \'gluon.html.BODY\'>, \'BR\': <class \'gluon.html.BR\'>, \'CENTER\': <class \'gluon.html.CENTER\'>, \'CLEANUP\': <class \'gluon.validators.CLEANUP\'>, \'CODE\': <class \'gluon.html.CODE\'>, \'CRYPT\': <class \'gluon.validators.CRYPT\'>, ...}, layer=r\'C:\\APPS\\augmi-a\\applications\\init/models/db.py\')'
+p110
+sS'func'
+p111
+S'restricted'
+p112
+sa(dp113
+g89
+S'C:\\APPS\\augmi-a\\applications\\init\\models\\db.py'
+p114
+sg91
+(dp115
+S'request.application'
+p116
+S"'init'"
+p117
+sS'request'
+p118
+S"<Storage {'function': 'index', 'body': <cStringI..., 22, 38, 5, 718000), 'post_vars': <Storage {}>}>"
+p119
+ssg97
+I51
+sg98
+(dp120
+I46
+S"auth.settings.actions_disabled=['register','change_password','request_reset_password']"
+p121
+sI47
+S'auth.settings.login_form = RPXAccount(request,'
+p122
+sI48
+S'api_key="4ef7f97b6cb5a679e4c5c486e1b7da786b88219d",'
+p123
+sI49
+S'domain="augmi",'
+p124
+sI50
+S'url = \'http://localhost:8000\' % # "http://localhost:8000/%s/default/user/login" %'
+p125
+sI51
+S'request.application)'
+p126
+sI52
+S'auth.define_tables()                         # creates all needed table'
+p127
+sI53
+S'crud=Crud(globals(),db)                      # for CRUD helpers using auth'
+p128
+sI54
+S'crud.settings.auth=auth'
+p129
+sI55
+S'# crud.settings.auth=auth                      # enforces authorization on crud'
+p130
+ssg109
+S'()'
+p131
+sg111
+S'<module>'
+p132
+sasS'pyver'
+p133
+S'Python 2.5.4: C:\\Python25\\python.exe'
+p134
+sS'session'
+p135
+(dp136
+S'auth'
+p137
+S'None'
+p138
+ssS'etype'
+p139
+S"<type 'exceptions.TypeError'>"
+p140
+sS'date'
+p141
+S'Sun Sep 19 22:38:05 2010'
+p142
+sS'response'
+p143
+(dp144
+S'status'
+p145
+S'200'
+p146
+sg51
+S'<cStringIO.StringO object at 0x022E2900>'
+p147
+sg66
+S"<SimpleCookie: session_id_init='127-0-0-1-9b797866-ed14-42a9-8f23-942db8f9d720'>"
+p148
+sS'_vars'
+p149
+S'None'
+p150
+sS'menu'
+p151
+S'[]'
+p152
+sS'flash'
+p153
+S"''"
+p154
+sS'session_new'
+p155
+S'True'
+p156
+sS'_custom_rollback'
+p157
+S'None'
+p158
+sS'session_id'
+p159
+S"'127-0-0-1-9b797866-ed14-42a9-8f23-942db8f9d720'"
+p160
+sS'headers'
+p161
+S"<Storage {'Expires': 'Sun, 19 Sep 2010 21:38:05 ...he, must-revalidate, post-check=0, pre-check=0'}>"
+p162
+sS'meta'
+p163
+S'<Storage {}>'
+p164
+sS'session_filename'
+p165
+S"r'C:\\APPS\\augmi-a\\applications\\init\\sessions\\127-0-0-1-9b797866-ed14-42a9-8f23-942db8f9d720'"
+p166
+sS'postprocessing'
+p167
+S'[]'
+p168
+sS'_caller'
+p169
+S'<function <lambda> at 0x021F5EB0>'
+p170
+sS'_view_environment'
+p171
+S"{'A': <class 'gluon.html.A'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, 'BR': <class 'gluon.html.BR'>, 'CENTER': <class 'gluon.html.CENTER'>, 'CLEANUP': <class 'gluon.validators.CLEANUP'>, 'CODE': <class 'gluon.html.CODE'>, 'CRYPT': <class 'gluon.validators.CRYPT'>, 'DAL': <function DAL at 0x0189D0B0>, ...}"
+p172
+sS'session_id_name'
+p173
+S"'session_id_init'"
+p174
+sS'_custom_commit'
+p175
+S'None'
+p176
+sS'files'
+p177
+S'[]'
+p178
+sS'view'
+p179
+S"'default/index.html'"
+p180
+ssS'locals'
+p181
+(dp182
+S'Service'
+p183
+S'<class gluon.tools.Service at 0x0198B240>'
+p184
+sS'OBJECT'
+p185
+S"<class 'gluon.html.OBJECT'>"
+p186
+sS'SQLDB'
+p187
+S"<class 'gluon.sql.SQLDB'>"
+p188
+sg135
+S"<Storage {'auth': None}>"
+p189
+sS'LINK'
+p190
+S"<class 'gluon.html.LINK'>"
+p191
+sS'BR'
+p192
+S"<class 'gluon.html.BR'>"
+p193
+sS'local_import'
+p194
+S'<function <lambda> at 0x022B3130>'
+p195
+sS'OPTGROUP'
+p196
+S"<class 'gluon.html.OPTGROUP'>"
+p197
+sS'PRE'
+p198
+S"<class 'gluon.html.PRE'>"
+p199
+sS'IS_INT_IN_RANGE'
+p200
+S"<class 'gluon.validators.IS_INT_IN_RANGE'>"
+p201
+sg82
+S'datetime.datetime(2010, 9, 19, 22, 38, 5, 750000)'
+p202
+sS'uuid'
+p203
+S"<module 'uuid' from 'C:\\Python25\\lib\\uuid.pyc'>"
+p204
+sS'IS_LOWER'
+p205
+S"<class 'gluon.validators.IS_LOWER'>"
+p206
+sS'IS_STRONG'
+p207
+S"<class 'gluon.validators.IS_STRONG'>"
+p208
+sS'Recaptcha'
+p209
+S"<class 'gluon.tools.Recaptcha'>"
+p210
+sS'cache'
+p211
+S'<gluon.cache.Cache object at 0x01FC3F50>'
+p212
+sS'IS_IN_DB'
+p213
+S"<class 'gluon.validators.IS_IN_DB'>"
+p214
+sS'TAG'
+p215
+S'<gluon.html.__TAG__ object at 0x01875810>'
+p216
+sS'SQLField'
+p217
+S"<class 'gluon.sql.Field'>"
+p218
+sS'BODY'
+p219
+S"<class 'gluon.html.BODY'>"
+p220
+sS'IS_DATE_IN_RANGE'
+p221
+S"<class 'gluon.validators.IS_DATE_IN_RANGE'>"
+p222
+sS'IFRAME'
+p223
+S"<class 'gluon.html.IFRAME'>"
+p224
+sS'URL'
+p225
+S'<function _URL at 0x022B3070>'
+p226
+sS'db'
+p227
+S"<SQLDB {'_connection': <sqlite3.Connection objec...me': 'TIME'}, '_migrate': True, '_pool_size': 0}>"
+p228
+sg137
+S'<gluon.tools.Auth object at 0x021FB4D0>'
+p229
+sS'P'
+S"<class 'gluon.html.P'>"
+p230
+sS'TFOOT'
+p231
+S"<class 'gluon.html.TFOOT'>"
+p232
+sS'XHTML'
+p233
+S"<class 'gluon.html.XHTML'>"
+p234
+sS'datetime'
+p235
+S"<module 'datetime' (built-in)>"
+p236
+sS'ON'
+p237
+g156
+sS'OL'
+p238
+S"<class 'gluon.html.OL'>"
+p239
+sS'TEXTAREA'
+p240
+S"<class 'gluon.html.TEXTAREA'>"
+p241
+sS'MENU'
+p242
+S"<class 'gluon.html.MENU'>"
+p243
+sS'EM'
+p244
+S"<class 'gluon.html.EM'>"
+p245
+sS'CODE'
+p246
+S"<class 'gluon.html.CODE'>"
+p247
+sS'HTTP'
+p248
+S"<class 'gluon.http.HTTP'>"
+p249
+sS'HR'
+p250
+S"<class 'gluon.html.HR'>"
+p251
+sS'IS_DATETIME'
+p252
+S"<class 'gluon.validators.IS_DATETIME'>"
+p253
+sS'STYLE'
+p254
+S"<class 'gluon.html.STYLE'>"
+p255
+sS'LABEL'
+p256
+S"<class 'gluon.html.LABEL'>"
+p257
+sS'CLEANUP'
+p258
+S"<class 'gluon.validators.CLEANUP'>"
+p259
+sS'SELECT'
+p260
+S"<class 'gluon.html.SELECT'>"
+p261
+sS'CENTER'
+p262
+S"<class 'gluon.html.CENTER'>"
+p263
+sS'prettydate'
+p264
+S'<function prettydate at 0x0198E0B0>'
+p265
+sS'Crud'
+p266
+S"<class 'gluon.tools.Crud'>"
+p267
+sS'Auth'
+p268
+S"<class 'gluon.tools.Auth'>"
+p269
+sS'__builtins__'
+p270
+S"{'ArithmeticError': <type 'exceptions.ArithmeticError'>, 'AssertionError': <type 'exceptions.AssertionError'>, 'AttributeError': <type 'exceptions.AttributeError'>, 'BaseException': <type 'exceptions.BaseException'>, 'DeprecationWarning': <type 'exceptions.DeprecationWarning'>, 'EOFError': <type 'exceptions.EOFError'>, 'Ellipsis': Ellipsis, 'EnvironmentError': <type 'exceptions.EnvironmentError'>, 'Exception': <type 'exceptions.Exception'>, 'False': False, ...}"
+p271
+sS'IS_LIST_OF'
+p272
+S"<class 'gluon.validators.IS_LIST_OF'>"
+p273
+sS'SQLFORM'
+p274
+S"<class 'gluon.sqlhtml.SQLFORM'>"
+p275
+sS'LOAD'
+p276
+S'<gluon.compileapp.LoadFactory instance at 0x021F87D8>'
+p277
+sS'redirect'
+p278
+S'<function redirect at 0x018045F0>'
+p279
+sS'FIELDSET'
+p280
+S"<class 'gluon.html.FIELDSET'>"
+p281
+sS'IS_EQUAL_TO'
+p282
+S"<class 'gluon.validators.IS_EQUAL_TO'>"
+p283
+sS'embed64'
+p284
+S'<function embed64 at 0x01871170>'
+p285
+sS'INPUT'
+p286
+S"<class 'gluon.html.INPUT'>"
+p287
+sS'EMBED'
+p288
+S"<class 'gluon.html.EMBED'>"
+p289
+sS'FORM'
+p290
+S"<class 'gluon.html.FORM'>"
+p291
+sS'H2'
+p292
+S"<class 'gluon.html.H2'>"
+p293
+sS'H3'
+p294
+S"<class 'gluon.html.H3'>"
+p295
+sS'H1'
+p296
+S"<class 'gluon.html.H1'>"
+p297
+sS'H6'
+p298
+S"<class 'gluon.html.H6'>"
+p299
+sS'H4'
+p300
+S"<class 'gluon.html.H4'>"
+p301
+sS'H5'
+p302
+S"<class 'gluon.html.H5'>"
+p303
+sS'UL'
+p304
+S"<class 'gluon.html.UL'>"
+p305
+sS'IS_UPPER'
+p306
+S"<class 'gluon.validators.IS_UPPER'>"
+p307
+sS'xmlescape'
+p308
+S'<function xmlescape at 0x018657F0>'
+p309
+sS'IS_TIME'
+p310
+S"<class 'gluon.validators.IS_TIME'>"
+p311
+sS'OPTION'
+p312
+S"<class 'gluon.html.OPTION'>"
+p313
+sS'TITLE'
+p314
+S"<class 'gluon.html.TITLE'>"
+p315
+sS'CRYPT'
+p316
+S"<class 'gluon.validators.CRYPT'>"
+p317
+sS'IS_EMPTY_OR'
+p318
+S"<class 'gluon.validators.IS_EMPTY_OR'>"
+p319
+sS'MARKMIN'
+p320
+S"<class 'gluon.html.MARKMIN'>"
+p321
+sS'SCRIPT'
+p322
+S"<class 'gluon.html.SCRIPT'>"
+p323
+sS'geocode'
+p324
+S'<function geocode at 0x0198A9F0>'
+p325
+sS'TABLE'
+p326
+S"<class 'gluon.html.TABLE'>"
+p327
+sS'IS_IPV4'
+p328
+S"<class 'gluon.validators.IS_IPV4'>"
+p329
+sS'IS_LENGTH'
+p330
+S"<class 'gluon.validators.IS_LENGTH'>"
+p331
+sS'XML'
+p332
+S"<class 'gluon.html.XML'>"
+p333
+sS'B'
+S"<class 'gluon.html.B'>"
+p334
+sS'IMG'
+p335
+S"<class 'gluon.html.IMG'>"
+p336
+sS'SQLTABLE'
+p337
+S"<class 'gluon.sqlhtml.SQLTABLE'>"
+p338
+sS'IS_MATCH'
+p339
+S"<class 'gluon.validators.IS_MATCH'>"
+p340
+sS'IS_ALPHANUMERIC'
+p341
+S"<class 'gluon.validators.IS_ALPHANUMERIC'>"
+p342
+sS'SPAN'
+p343
+S"<class 'gluon.html.SPAN'>"
+p344
+sS'IS_SLUG'
+p345
+S"<class 'gluon.validators.IS_SLUG'>"
+p346
+sS'META'
+p347
+S"<class 'gluon.html.META'>"
+p348
+sS'fetch'
+p349
+S'<function fetch at 0x01957930>'
+p350
+sS'IS_DATE'
+p351
+S"<class 'gluon.validators.IS_DATE'>"
+p352
+sS'IS_EMAIL'
+p353
+S"<class 'gluon.validators.IS_EMAIL'>"
+p354
+sS'IS_NOT_EMPTY'
+p355
+S"<class 'gluon.validators.IS_NOT_EMPTY'>"
+p356
+sS'IS_FLOAT_IN_RANGE'
+p357
+S"<class 'gluon.validators.IS_FLOAT_IN_RANGE'>"
+p358
+sS'BEAUTIFY'
+p359
+S"<class 'gluon.html.BEAUTIFY'>"
+p360
+sS'TBODY'
+p361
+S"<class 'gluon.html.TBODY'>"
+p362
+sS'Field'
+p363
+S"<class 'gluon.sql.Field'>"
+p364
+sS'Mail'
+p365
+S"<class 'gluon.tools.Mail'>"
+p366
+sS'DIV'
+p367
+S"<class 'gluon.html.DIV'>"
+p368
+sS'LEGEND'
+p369
+S"<class 'gluon.html.LEGEND'>"
+p370
+sS'DAL'
+p371
+S'<function DAL at 0x0189D0B0>'
+p372
+sS'TT'
+p373
+S"<class 'gluon.html.TT'>"
+p374
+sS'TR'
+p375
+S"<class 'gluon.html.TR'>"
+p376
+sS'LI'
+p377
+S"<class 'gluon.html.LI'>"
+p378
+sS'TH'
+p379
+S"<class 'gluon.html.TH'>"
+p380
+sS'TD'
+p381
+S"<class 'gluon.html.TD'>"
+p382
+sS'PluginManager'
+p383
+S"<class 'gluon.tools.PluginManager'>"
+p384
+sS'IS_URL'
+p385
+S"<class 'gluon.validators.IS_URL'>"
+p386
+sS'A'
+S"<class 'gluon.html.A'>"
+p387
+sS'HEAD'
+p388
+S"<class 'gluon.html.HEAD'>"
+p389
+sS'IS_DATETIME_IN_RANGE'
+p390
+S"<class 'gluon.validators.IS_DATETIME_IN_RANGE'>"
+p391
+sS'HTML'
+p392
+S"<class 'gluon.html.HTML'>"
+p393
+sS'IS_IMAGE'
+p394
+S"<class 'gluon.validators.IS_IMAGE'>"
+p395
+sS'I'
+S"<class 'gluon.html.I'>"
+p396
+sS'IS_NOT_IN_DB'
+p397
+S"<class 'gluon.validators.IS_NOT_IN_DB'>"
+p398
+sg143
+S"<Storage {'status': 200, 'body': <cStringIO.Stri...t': None, 'files': [], '_custom_rollback': None}>"
+p399
+sS'THEAD'
+p400
+S"<class 'gluon.html.THEAD'>"
+p401
+sS'IS_NULL_OR'
+p402
+S"<class 'gluon.validators.IS_EMPTY_OR'>"
+p403
+sg47
+S"<Storage {'function': 'index', 'body': <cStringI..., 22, 38, 5, 718000), 'post_vars': <Storage {}>}>"
+p404
+sS'IS_EXPR'
+p405
+S"<class 'gluon.validators.IS_EXPR'>"
+p406
+sS'RPXAccount'
+p407
+S"<class 'gluon.contrib.login_methods.rpx_account.RPXAccount'>"
+p408
+sS'IS_IN_SET'
+p409
+S"<class 'gluon.validators.IS_IN_SET'>"
+p410
+sS'IS_UPLOAD_FILENAME'
+p411
+S"<class 'gluon.validators.IS_UPLOAD_FILENAME'>"
+p412
+sS'time'
+p413
+S"<module 'time' (built-in)>"
+p414
+sS'IS_DECIMAL_IN_RANGE'
+p415
+S"<class 'gluon.validators.IS_DECIMAL_IN_RANGE'>"
+p416
+sS'T'
+S'<gluon.languages.translator object at 0x022E2990>'
+p417
+sssS'traceback'
+p418
+S'Traceback (most recent call last):\n  File "C:\\APPS\\augmi-a\\gluon\\restricted.py", line 188, in restricted\n    exec ccode in environment\n  File "C:\\APPS\\augmi-a\\applications\\init/models/db.py", line 51, in <module>\n    request.application)\nTypeError: not all arguments converted during string formatting\n'
+p419
+s.

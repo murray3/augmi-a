@@ -1,0 +1,45 @@
+(dp1
+S'user_id'
+p2
+S'REFERENCES auth_user(id) ON DELETE CASCADE'
+p3
+sS'uuid'
+p4
+S'CHAR(128)'
+p5
+sS'timestamp'
+p6
+S'TIMESTAMP'
+p7
+sS'give_user_id'
+p8
+S'CHAR(512)'
+p9
+sS'q'
+S'INTEGER'
+p10
+sS'message_give'
+p11
+S'CHAR(512)'
+p12
+sS'message_admin'
+p13
+S'CHAR(512)'
+p14
+sS'take_user_id'
+p15
+S'CHAR(512)'
+p16
+sS'user_name'
+p17
+S'REFERENCES auth_user(id) ON DELETE CASCADE'
+p18
+sS'id'
+p19
+S'INTEGER PRIMARY KEY AUTOINCREMENT'
+p20
+sS'message_take'
+p21
+S'CHAR(512)'
+p22
+s.
